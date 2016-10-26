@@ -6,6 +6,7 @@ and test their knowledge in this subject. Also, the modules can be reused for ot
 The following instructions and information will help you to install and start/develop the app:
 #### Prerequisites
 In order to work on this project you will need the following things:
+
 1. Python IDE (Python IDE, Pydev with Eclipse, PyCharm etc)
 2. Git
 
