@@ -25,12 +25,11 @@ def commandIsValid(comList):
             if validateWords(comList,possibleCommand):
                 return True
             else:
-                print("The command has not a valid format!")
+                raise ValueError("The command has not a valid format!")
         else:
-            print("Check the number of words in your command!")
+            raise ValueError("Check the number of words in your command!")
     else:
-        print("Command doesn't exist!")
-    raise ValueError
+        raise ValueError("Command doesn't exist!")
     
 def validateLength(comList):
     '''

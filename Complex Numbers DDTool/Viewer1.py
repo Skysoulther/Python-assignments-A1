@@ -113,7 +113,8 @@ def mainMenu1():
                     print("-"*50+"\nThanks for using the app! Have a nice day!\n"+"-"*50)
                     break
                 
-        except ValueError:
+        except ValueError as ve:
+            print(str(ve))
             print("-"*50+"\nThe command is invalid!\n"+"-"*50)
 
 def submenuAdd(comList):

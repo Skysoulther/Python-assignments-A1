@@ -143,7 +143,7 @@ def listComplexList(l):
     '''
     print('-'*30)
     for i in range(len(l)):
-        print(str(i+1)+'.',toString(l[i]))
+        print(str(i)+'.',toString(l[i]))
     print('-'*30)
     return
 
