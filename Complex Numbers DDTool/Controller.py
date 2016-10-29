@@ -57,8 +57,8 @@ def insertNumber(l,s,index):
     Output: adds an element to the list (if it is possible)
     Exceptions: -
     '''
-    undoSave(complexList)
     if index>-1 and index<len(l)-1:
+        undoSave(complexList)
         l.insert(index,s)
         print("The element was inserted!")
     else:
@@ -73,8 +73,8 @@ def removePosition(l,pos):
     Output: Removes an element if possible
     Exceptions: -
     '''
-    undoSave(complexList)
     if pos>-1 and pos<len(l):
+        undoSave(complexList)
         l.pop(pos)
         print("Element at position",pos,"was removed!")
     else:
@@ -90,9 +90,9 @@ def removePositions(l,pos1,pos2):
     Output: Removes elements from one position to another
     Exceptions: -
     '''
-    undoSave(complexList)
     if pos1<pos2:
         if pos1>-1 and pos2<len(l):
+            undoSave(complexList)
             i=pos1
             while i<=pos2:
                 l.pop(pos1)
@@ -113,10 +113,10 @@ def replaceNumber(l,num1,num2):
     Output: Change elements from the list
     Exceptions: -
     '''
-    undoSave(complexList)
     if not num1 in l:
         print("The first number is not in the list. No change was made!")
     else:
+        undoSave(complexList)
         for i in range(len(l)):
             if l[i]==num1:
                 l[i]=num2
