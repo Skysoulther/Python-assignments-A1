@@ -123,6 +123,7 @@ def submenuAdd(comList):
     '''
     complexNr=complexNumber(comList[1])
     addNumber(complexList,complexNr)
+    print("A number was successfully added!")
 
 def submenuInsert(comList):
     '''
@@ -130,7 +131,11 @@ def submenuInsert(comList):
     '''
     complexNr=complexNumber(comList[1])
     pos=int(comList[3])
-    insertNumber(complexList,complexNr,pos)
+    try:
+        insertNumber(complexList,complexNr,pos)
+        print("The element was inserted!")
+    except ValueError:
+        print("The position is out of range")
     
 def submenuRemove(comList):
     '''
@@ -138,11 +143,19 @@ def submenuRemove(comList):
     '''
     if len(comList)==2:
         pos=int(comList[1])
-        removePosition(complexList,pos)
+        try:
+            removePosition(complexList,pos)
+            print("Element at position",pos,"was removed!")
+        except valueError:
+            print("The position is out of range!")
     else:
         pos1=int(comList[1])
         pos2=int(comList[3])
-        removePositions(complexList,pos1,pos2)
+        try:
+            removePositions(complexList,pos1,pos2)
+            print("Elements from",pos1,"to",pos2,"were removed!")
+        except ValueError as ve:
+            print(str(ve))
 
 def submenuReplace(comList):
     '''
@@ -150,7 +163,11 @@ def submenuReplace(comList):
     '''
     complexNr1=complexNumber(comList[1])
     complexNr2=complexNumber(comList[3])
-    replaceNumber(complexList,complexNr1,complexNr2)
+    try:
+        replaceNumber(complexList,complexNr1,complexNr2)
+        print("The elements were replaced!")
+    except ValueError as ve:
+        print(str(ve))
     
 def submenuList(comList):
     '''
@@ -162,13 +179,22 @@ def submenuList(comList):
             print("-"*30+"\nThe list is empty!\n"+"-"*30)
         else:
             listComplexList(complexList)
+
     elif len(comList)==5:
         pos1=int(comList[2])
         pos2=int(comList[4])
-        listReal(complexList,pos1,pos2)
+        try:
+            print("The list of real numbers between positions:",pos1,"and",pos2)
+            listReal(complexList,pos1,pos2)
+        except ValueError as ve:
+            print(str(ve))
     else:
         modulus=int(comList[3])
-        listModulus(complexList,modulus,compareOperation(comList[2]))
+        try:
+            print("The elements from the list which satisfy your condition are: ")
+            listModulus(complexList,modulus,compareOperation(comList[2]))
+        except ValueError as ve:
+            print(str(ve))
 
 def submenuSum(comList):
     '''
@@ -176,8 +202,11 @@ def submenuSum(comList):
     '''
     pos1=int(comList[1])
     pos2=int(comList[3])
-    sumx=sumNumbers(complexList,pos1,pos2)
-    print("The sum of elements from",pos1,"to",pos2,"is:",toString(sumx))
+    try:
+        sumx=sumNumbers(complexList,pos1,pos2)
+        print("The sum of elements from",pos1,"to",pos2,"is:",toString(sumx))
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuProduct(comList):
     '''
@@ -185,8 +214,11 @@ def submenuProduct(comList):
     '''
     pos1=int(comList[1])
     pos2=int(comList[3])
-    prod=productNumbers(complexList,pos1,pos2)
-    print("The product of elements from",pos1,"to",pos2,"is:",toString(prod))
+    try:
+        prod=productNumbers(complexList,pos1,pos2)
+        print("The product of elements from",pos1,"to",pos2,"is:",toString(prod))
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuFilter(comList):
     '''
@@ -197,10 +229,15 @@ def submenuFilter(comList):
     else:
         modulus=int(comList[3])
         filterModulus(complexList,modulus,compareOperation(comList[2]))
+    print("The list was filtered!")
 
 def submenuUndo():
     '''
     The menu for function 'undo'
     '''
-    undoRecovery(complexList)
+    try:
+        undoRecovery(complexList)
+        print("Successful undo!")
+    except ValueError:
+        print('-'*30+"\nThere is no further undo!\n"+'-'*30)
 

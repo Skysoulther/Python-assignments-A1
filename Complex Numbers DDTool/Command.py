@@ -221,28 +221,24 @@ def testCommandIsValid():
     '''
     try:
         commandIsValid(['remove','a','to','b'])
-        ok=1
+        assert False
     except ValueError:
-        ok=0
-    assert ok == 0
+        assert True
     try:
         commandIsValid(['remove','5','to','2'])
-        ok=1
+        assert True
     except ValueError:
-        ok=0
-    assert ok == 1
+        assert False
     try:
         commandIsValid(['undo'])
-        ok=1
+        assert True
     except ValueError:
-        ok=0
-    assert ok == 1
+        assert False
     try:
         commandIsValid(['undo','ram'])
-        ok=1
+        assert False
     except ValueError:
-        ok=0
-    assert ok == 0
+        assert True
     return 
 
 #testValidateCommand()

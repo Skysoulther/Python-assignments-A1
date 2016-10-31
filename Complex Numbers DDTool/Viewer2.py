@@ -177,6 +177,7 @@ def submenuAdd():
     complexNr=readComplexNumber()
     print('-'*50)
     addNumber(complexList,complexNr)
+    print("A number was successfully added!")
 
 def submenuInsert():
     '''
@@ -186,7 +187,11 @@ def submenuInsert():
     complexNr=readComplexNumber()
     pos=readPosition()
     print('-'*50)
-    insertNumber(complexList,complexNr,pos)
+    try:
+        insertNumber(complexList,complexNr,pos)
+        print("The element was inserted!")
+    except ValueError:
+        print("The position is out of range")
     
 def submenuRemove1():
     '''
@@ -195,7 +200,11 @@ def submenuRemove1():
     print("\nRemove an element:")
     pos=readPosition()
     print('-'*50)
-    removePosition(complexList,pos)
+    try:
+        removePosition(complexList,pos)
+        print("Element at position",pos,"was removed!")
+    except valueError:
+        print("The position is out of range!")
 
 def submenuRemove2():
     '''
@@ -206,7 +215,11 @@ def submenuRemove2():
     pos1=positions[0]
     pos2=positions[1]
     print('-'*50)
-    removePositions(complexList,pos1,pos2)
+    try:
+        removePositions(complexList,pos1,pos2)
+        print("Elements from",pos1,"to",pos2,"were removed!")
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuReplace():
     '''
@@ -219,7 +232,11 @@ def submenuReplace():
     print("Second number")
     complexNr2=readComplexNumber()
     print('-'*50)
-    replaceNumber(complexList,complexNr1,complexNr2)
+    try:
+        replaceNumber(complexList,complexNr1,complexNr2)
+        print("The elements were replaced!")
+    except ValueError as ve:
+        print(str(ve))
     
 def submenuList1():
     '''
@@ -240,7 +257,11 @@ def submenuList2():
     pos1=positions[0]
     pos2=positions[1]
     print('-'*50)
-    listReal(complexList,pos1,pos2)
+    try:
+        print("The list of real numbers between positions:",pos1,"and",pos2)
+        listReal(complexList,pos1,pos2)
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuList3():
     '''
@@ -250,7 +271,11 @@ def submenuList3():
     modulus=readModulus()
     op=readOperator()
     print('-'*50)
-    listModulus(complexList,modulus,op)
+    try:
+        print("The elements from the list which satisfy your condition are: ")
+        listModulus(complexList,modulus,compareOperation(comList[2]))
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuSum():
     '''
@@ -261,8 +286,11 @@ def submenuSum():
     pos1=positions[0]
     pos2=positions[1]
     print('-'*50)
-    sumx=sumNumbers(complexList,pos1,pos2)
-    print("The sum of elements from",pos1,"to",pos2,"is:",toString(sumx))
+    try:
+        sumx=sumNumbers(complexList,pos1,pos2)
+        print("The sum of elements from",pos1,"to",pos2,"is:",toString(sumx))
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuProduct():
     '''
@@ -273,8 +301,11 @@ def submenuProduct():
     pos1=positions[0]
     pos2=positions[1]
     print('-'*50)
-    prod=productNumbers(complexList,pos1,pos2)
-    print("The product of elements from",pos1,"to",pos2,"is:",toString(prod))
+    try:
+        prod=productNumbers(complexList,pos1,pos2)
+        print("The product of elements from",pos1,"to",pos2,"is:",toString(prod))
+    except ValueError as ve:
+        print(str(ve))
 
 def submenuFilter1():
     '''
@@ -282,6 +313,7 @@ def submenuFilter1():
     '''
     print("\nKeep only the real elements of the list:")
     filterReal(complexList)
+    print("The list was filtered!")
 
 def submenuFilter2():
     '''
@@ -292,7 +324,12 @@ def submenuFilter2():
     op=readOperator()
     print('-'*50)
     filterModulus(complexList,modulus,op)
+    print("The list was filtered!")
 
 def submenuUndo():
-    undoRecovery(complexList)
+    try:
+        undoRecovery(complexList)
+        print("Successful undo!")
+    except ValueError:
+        print('-'*30+"\nThere is no further undo!\n"+'-'*30)
 

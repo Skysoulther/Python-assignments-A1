@@ -45,7 +45,6 @@ def addNumber(l,s):
     '''
     undoSave(complexList)
     l.append(s)
-    print("A number was successfully added!")
     return
 
 def insertNumber(l,s,index):
@@ -55,14 +54,13 @@ def insertNumber(l,s,index):
            s - the complex number as a list
            index - the position where the number should be inserted
     Output: adds an element to the list (if it is possible)
-    Exceptions: -
+    Exceptions: ValueError if the position is out of range
     '''
     if index>-1 and index<len(l)-1:
         undoSave(complexList)
         l.insert(index,s)
-        print("The element was inserted!")
     else:
-        print("The position is out of range")
+        raise ValueError
     return
 
 def removePosition(l,pos):
@@ -71,14 +69,13 @@ def removePosition(l,pos):
     Input: l - list of complex numbers
            pos - position of element
     Output: Removes an element if possible
-    Exceptions: -
+    Exceptions: ValueError if the position is out of range
     '''
     if pos>-1 and pos<len(l):
         undoSave(complexList)
         l.pop(pos)
-        print("Element at position",pos,"was removed!")
     else:
-        print("The position is out of range!")
+        raise ValueError
     return
 
 def removePositions(l,pos1,pos2):
@@ -88,7 +85,7 @@ def removePositions(l,pos1,pos2):
            pos1 - position of the first element
            pos2 - position of the second elemnt
     Output: Removes elements from one position to another
-    Exceptions: -
+    Exceptions: ValueError if positions are invalid
     '''
     if pos1<pos2:
         if pos1>-1 and pos2<len(l):
@@ -97,11 +94,10 @@ def removePositions(l,pos1,pos2):
             while i<=pos2:
                 l.pop(pos1)
                 i+=1
-            print("Elements from",pos1,"to",pos2,"were removed!")
         else:
-            print("Positions are invalid!")
+            raise ValueError("Positions are invalid!")
     else:
-        print("First position is equal or bigger than the second position")
+        raise ValueError("First position is equal or bigger than the second position")
     return
 
 def replaceNumber(l,num1,num2):
@@ -111,16 +107,15 @@ def replaceNumber(l,num1,num2):
            num1 - first number
            num2 - second number
     Output: Change elements from the list
-    Exceptions: -
+    Exceptions: ValueError if there is no number to replace
     '''
     if not num1 in l:
-        print("The first number is not in the list. No change was made!")
+        raise ValueError("The first number is not in the list. No change was made!")
     else:
         undoSave(complexList)
         for i in range(len(l)):
             if l[i]==num1:
                 l[i]=num2
-        print("The elements were replaced!")
     return
 
 def toString(s):
@@ -154,7 +149,7 @@ def listReal(l,pos1,pos2):
            pos1 - start position
            pos2 - end position
     Output: Prints a list of real elememts
-    Exceptions: -
+    Exceptions: ValueError if the position is invalid or positions are invalid
     '''
     real=[]
     if pos1<pos2:
@@ -165,14 +160,13 @@ def listReal(l,pos1,pos2):
                     real.append(l[i])
                 i+=1
             if len(real)==0:
-                print("No real numbers between positions:",pos1,"and",pos2)
+                raise ValueError("No real numbers between positions:",pos1,"and",pos2)
             else:
-                print("The list of real numbers between positions:",pos1,"and",pos2)
                 listComplexList(real)
         else:
-            print("Positions are invalid!")
+            raise ValueError("Positions are invalid!")
     else:
-        print("First position is equal or bigger than the second position")
+        raise ValueError("First position is equal or bigger than the second position")
     return
 
 def compareOperation(compare):
@@ -199,7 +193,7 @@ def listModulus(l,modul,comp):
            modul - modulus that should be compared
            comp - a numnber which indicates how to operate
     Output: Prints a list of complex numbers
-    Exceptions: -
+    Exceptions: ValueError if the asked list is empty
     '''
     mod=[]
     if comp==0:
@@ -215,9 +209,8 @@ def listModulus(l,modul,comp):
             if complexModulus(l[i])>modul:
                 mod.append(l[i])
     if len(mod)==0:
-        print('No element from the list satisfies your condition!')
+        raise ValueError('No element from the list satisfies your condition!')
     else:
-        print("The elements from the list which satisfy your condition are: ")
         listComplexList(mod)
     return
 
@@ -228,7 +221,7 @@ def sumNumbers(l,pos1,pos2):
            pos1 - start position
            pos2 - end position
     Output: sumx - sum of the complex numbers if it is possible
-    Exceptions: -
+    Exceptions: ValueError if positions are invalid
     '''
     sumx=[0,0]
     if pos1<pos2:
@@ -238,9 +231,9 @@ def sumNumbers(l,pos1,pos2):
                 sumx=complexSum(sumx,l[i])
                 i+=1
         else:
-            print("Positions are invalid!")
+            raise ValueError("Positions are invalid!")
     else:
-        print("First position is equal or bigger than the second position")
+        raise ValueError("First position is equal or bigger than the second position")
     return sumx
 
 def productNumbers(l,pos1,pos2):
@@ -250,7 +243,7 @@ def productNumbers(l,pos1,pos2):
            pos1 - start position
            pos2 - end position
     Output: sumx - product of the complex numbers if it is possible
-    Exceptions: -
+    Exceptions: ValueError if positions are invalid
     '''
     prod=[1,0]
     if pos1<pos2:
@@ -260,9 +253,9 @@ def productNumbers(l,pos1,pos2):
                 prod=complexProduct(prod,l[i])
                 i+=1
         else:
-            print("Positions are invalid!")
+            raise ValueError("Positions are invalid!")
     else:
-        print("First position is equal or bigger than the second position")
+        raise ValueError("First position is equal or bigger than the second position")
     return prod
 
 def filterReal(l):
@@ -279,7 +272,6 @@ def filterReal(l):
             i+=1
         else:
             l.pop(i)
-    print("The list was filtered!")
     return
 
 def filterModulus(l,modul,comp):
@@ -313,10 +305,7 @@ def filterModulus(l,modul,comp):
                 i+=1
             else:
                 l.pop(i)
-    print("The list was filtered!")
     return
-
-
 
 def undoRecovery(l):
     '''
@@ -326,12 +315,11 @@ def undoRecovery(l):
     Exceptions: -
     '''
     if len(undoList)==0:
-        print('-'*30+"\nThere is no further undo!\n"+'-'*30)
+        raise ValueError
     else:
         l.clear()
         el=undoList.pop()
         l.extend(el)
-        print("Successful undo!")
     return
 
 def testFilterModulus():
@@ -425,7 +413,11 @@ def testReplaceNumber():
     assert ([-7,-7] in testList)==False
     assert ([77,77] in testList)==True
     assert ([2000,2000] in testList)==False
-    replaceNumber(testList,[2000,2000],[250,250])
+    try:
+        replaceNumber(testList,[2000,2000],[250,250])
+        assert False
+    except:
+        assert True
     assert len(testList)==10
     assert ([250,250] in testList)==False
     return
@@ -437,13 +429,29 @@ def testRemovePositions():
     assert len(testList)==10
     removePositions(testList,1,2)
     assert len(testList)==8
-    removePositions(testList,8,8)
+    try:
+        removePositions(testList,8,8)
+        assert False
+    except:
+        assert True
     assert len(testList)==8
-    removePositions(testList,5,4)
+    try:
+        removePositions(testList,5,4)
+        assert False
+    except:
+        assert True
     assert len(testList)==8
-    removePositions(testList,-1,5)
+    try:
+        removePositions(testList,-1,5)
+        assert False
+    except:
+        assert True
     assert len(testList)==8
-    removePositions(testList,5,20)
+    try:
+        removePositions(testList,5,20)
+        assert False
+    except:
+        assert True
     assert len(testList)==8
     removePositions(testList,1,3)
     assert len(testList)==5
@@ -460,11 +468,23 @@ def testRemovePosition():
     assert len(testList)==10
     removePosition(testList,1)
     assert len(testList)==9
-    removePosition(testList,11)
+    try:
+        removePosition(testList,11)
+        assert False
+    except:
+        assert True
     assert len(testList)==9
-    removePosition(testList,15)
+    try:
+        removePosition(testList,15)
+        assert False
+    except:
+        assert True
     assert len(testList)==9
-    removePosition(testList,-1)
+    try:
+        removePosition(testList,-1)
+        assert False
+    except:
+        assert True
     assert len(testList)==9
     removePosition(testList,8)
     assert len(testList)==8
@@ -480,11 +500,23 @@ def testInsertNumber():
     assert len(testList)==10
     insertNumber(testList,[1,1],1)
     assert len(testList)==11
-    insertNumber(testList,[1,1],11)
+    try:
+        insertNumber(testList,[1,1],11)
+        assert False
+    except ValueError:
+        assert True
     assert len(testList)==11
-    insertNumber(testList,[1,1],15)
+    try:
+        insertNumber(testList,[1,1],15)
+        assert False
+    except ValueError:
+        assert True
     assert len(testList)==11
-    insertNumber(testList,[1,1],-1)
+    try:
+        insertNumber(testList,[1,1],-1)
+        assert False
+    except ValueError:
+        assert True
     assert len(testList)==11
     insertNumber(testList,[1,1],8)
     assert len(testList)==12
@@ -530,5 +562,3 @@ def runAllTests():
     testProductNumbers()
     testFilterReal()
     testFilterModulus()
-    print('-'*50+'\nWELL DONE!\n'+'-'*50)
-
