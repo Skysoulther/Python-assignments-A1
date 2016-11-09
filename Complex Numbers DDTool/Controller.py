@@ -134,21 +134,21 @@ def toString(s):
 
 def listComplexList(l):
     '''
-    Prints a list of complex numbers
+    Shows a list of complex numbers
     '''
-    print('-'*30)
+    string='-'*30+'\n'
     for i in range(len(l)):
-        print(str(i)+'.',toString(l[i]))
-    print('-'*30)
-    return
+        string=string+str(i)+'. '+toString(l[i])+'\n'
+    string+='-'*30
+    return string
 
 def listReal(l,pos1,pos2):
     '''
-    Prints the real numbers in list from pos1 to pos2
+    Showss the real numbers in list from pos1 to pos2
     Input: l - list of complex numbers
            pos1 - start position
            pos2 - end position
-    Output: Prints a list of real elememts
+    Output: Shows a list of real elememts
     Exceptions: ValueError if the position is invalid or positions are invalid
     '''
     real=[]
@@ -162,12 +162,11 @@ def listReal(l,pos1,pos2):
             if len(real)==0:
                 raise ValueError("No real numbers between positions:",pos1,"and",pos2)
             else:
-                listComplexList(real)
+                return listComplexList(real)
         else:
             raise ValueError("Positions are invalid!")
     else:
         raise ValueError("First position is equal or bigger than the second position")
-    return
 
 def compareOperation(compare):
     '''
@@ -188,11 +187,11 @@ def compareOperation(compare):
     
 def listModulus(l,modul,comp):
     '''
-    Prints all the numbers from the list having a certain modulus
+    Shows all the numbers from the list having a certain modulus
     Input: l - list of complex numbers
            modul - modulus that should be compared
            comp - a numnber which indicates how to operate
-    Output: Prints a list of complex numbers
+    Output: Shows a list of complex numbers
     Exceptions: ValueError if the asked list is empty
     '''
     mod=[]
@@ -211,8 +210,7 @@ def listModulus(l,modul,comp):
     if len(mod)==0:
         raise ValueError('No element from the list satisfies your condition!')
     else:
-        listComplexList(mod)
-    return
+        return listComplexList(mod)
 
 def sumNumbers(l,pos1,pos2):
     '''

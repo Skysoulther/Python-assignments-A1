@@ -178,21 +178,21 @@ def submenuList(comList):
         if len(complexList)==0:
             print("-"*30+"\nThe list is empty!\n"+"-"*30)
         else:
-            listComplexList(complexList)
+            print(listComplexList(complexList))
 
     elif len(comList)==5:
         pos1=int(comList[2])
         pos2=int(comList[4])
         try:
             print("The list of real numbers between positions:",pos1,"and",pos2)
-            listReal(complexList,pos1,pos2)
+            print(listReal(complexList,pos1,pos2))
         except ValueError as ve:
             print(str(ve))
     else:
         modulus=int(comList[3])
         try:
             print("The elements from the list which satisfy your condition are: ")
-            listModulus(complexList,modulus,compareOperation(comList[2]))
+            print(listModulus(complexList,modulus,compareOperation(comList[2])))
         except ValueError as ve:
             print(str(ve))
 
