@@ -24,6 +24,7 @@ class movieRepository:
         Output: -
         Exceptions: ValueError from validator or if the ID is already used
         '''
+        movie=Movie(movie[0],movie[1],movie[3],movie[2])
         self.__validator.validateMovie(movie)
         Id=int(movie.get_Id())
         if not self.find_by_ID(Id):
@@ -43,7 +44,7 @@ class movieRepository:
         if self.find_by_ID(Id):
             self.__movies.pop(Id)
         else:
-            raise ValueError("There is no movie with the ID: "+str(Id)+"\n")
+            raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
     
     def return_movie_Id(self,Id):
         '''
@@ -55,7 +56,7 @@ class movieRepository:
         self.__validator.validateID(Id)
         Id=int(Id)
         if not self.find_by_ID(Id):
-            raise ValueError("There is no movie with the ID: "+str(Id)+"\n")
+            raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
         else:
             return self.__movies[Id]
                 
@@ -118,7 +119,26 @@ class movieRepository:
                     askedMovies[movie.get_Id()]=movie
         
         return askedMovies
+
+###########################################################################
+
+class RepositoryException(Exception):
+    '''
+    Class for Repository Exceptions
+    '''
+    def __init__(self, message):
+        '''
+        Creates an error message
+        '''
+        self.__message=message
     
+    def __str__(self):
+        '''
+        Returns a message as a string
+        '''
+        return self.__message
+
+################################################################################
 
 def testRepositoryMovies():
     '''

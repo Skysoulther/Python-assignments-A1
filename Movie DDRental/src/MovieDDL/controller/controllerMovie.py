@@ -21,8 +21,7 @@ class movieController:
         Output: -
         Exceptions: -
         '''
-        newMovie=Movie(movie[0],movie[1],movie[3],movie[2])
-        self._repository.add_movie(newMovie)
+        self._repository.add_movie(movie)
     
     def remove_movie(self, Id):
         '''
