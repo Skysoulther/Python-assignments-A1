@@ -88,23 +88,15 @@ class clientRepository:
                information - a partial string which is used for searching
         '''
         askedClients={}
-        if field==1:
-            for key in self.__clients:
-                client=self.__clients[key]
-                stringer=str(client.get_clientID())
-                result=stringer.find(information)
-                if result!=-1:
-                    askedClients[client.get_clientID()]=client
-                
-        elif field==2:
-            for key in self.__clients:
-                client=self.__clients[key]
-                stringer=str(client.get_clientName()).lower()
-                result=stringer.find(information.lower())
-                if result!=-1:
-                    askedClients[client.get_clientID()]=client
-                
         
+        for key in self.__clients:
+            client=self.__clients[key]
+            fields={1:client.get_clientID,2:client.get_clientName}
+            stringer=str(fields[field]()).lower()
+            result=stringer.find(information.lower())
+            if result!=-1:
+                askedClients[client.get_clientID()]=client
+                
         return askedClients
     
     

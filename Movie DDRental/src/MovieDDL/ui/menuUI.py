@@ -327,12 +327,56 @@ class Menu:
             except Exception as ex:
                 print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
-               
+            
+        def _startSearch(self,field):
+            '''
+            Searches the partial string in the repository of movies
+            '''
+            messages=[0,"Enter the ID (or a part of it): ",
+                      "Enter the Name (or a part of it): "]
+            information=input(messages[field])
+            askedClients=self._clientController.search_client(field,information)
+            self.printList(askedClients)
+            if len(askedClients)>0:
+                self._press()
+            else:
+                self._press()
+        
+        def searchClients(self):
+            '''
+            the main menu for searching movies
+            '''
+            fieldOptions=[1,2]
+            while True:
+                self.printSearchClientsFields()
+                try:
+                    field=int(input("Enter your option: "))
+                    if field in fieldOptions:
+                        self._startSearch(field)
+                    elif field==0:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("-"*30+"\nOption is invalid!\n"+"-"*30)
+                    self._press()
+            
+        def printSearchClientsFields(self):
+            '''
+            Prints the menu of fields for movies
+            '''
+            menuString="\n Search a client by a field:\n"+"-"*30+"\n"
+            menuString+="1. Search by ID\n"
+            menuString+="2. Search by Name\n"
+            menuString+="0. Go back to main menu\n"+"-"*30+"\n"
+            print(menuString)
+           
         def manageClients(self):
             '''
             the main menu for clients management
             '''
-            optionsClient={1:self.addClient,2:self.removeClient,3:self.showAllClients,4:self.editClient}
+            optionsClient={1:self.addClient,2:self.removeClient,3:self.showAllClients,4:self.editClient,
+                           5:self.searchClients}
             while True:
                 self.printClientsMenu()
                 try:
@@ -357,6 +401,7 @@ class Menu:
             menuString+="2. Remove client \n"
             menuString+="3. Show all clients \n"
             menuString+="4. Edit the name of a client\n"
+            menuString+="5. Search clients\n"
             menuString+="0. Go back to main menu \n"+"-"*30
             print(menuString)
     

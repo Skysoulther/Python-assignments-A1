@@ -71,11 +71,11 @@ class clientController():
         Id=int(Id)
         return self._repository.return_client_Id(Id)
     
-    def search_movie(self, field, information):
+    def search_client(self, field, information):
         '''
         Searches all the clients with the mentioned field and information
         '''
-        return self._repository.search_movie(field,information)
+        return self._repository.search_client(field,information)
 
 ################################################################################
 

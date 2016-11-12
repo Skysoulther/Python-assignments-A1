@@ -89,37 +89,14 @@ class movieRepository:
                information - a partial string which is used for searching
         '''
         askedMovies={}
-        if field==1:
-            for key in self.__movies:
-                movie=self.__movies[key]
-                stringer=str(movie.get_Id())
-                result=stringer.find(information)
-                if result!=-1:
-                    askedMovies[movie.get_Id()]=movie
-                
-        elif field==2:
-            for key in self.__movies:
-                movie=self.__movies[key]
-                stringer=str(movie.get_title()).lower()
-                result=stringer.find(information.lower())
-                if result!=-1:
-                    askedMovies[movie.get_Id()]=movie
-                
-        elif field==3:
-            for key in self.__movies:
-                movie=self.__movies[key]
-                stringer=str(movie.get_genre()).lower()
-                result=stringer.find(information.lower())
-                if result!=-1:
-                    askedMovies[movie.get_Id()]=movie
-                
-        else:
-            for key in self.__movies:
-                movie=self.__movies[key]
-                stringer=str(movie.get_description()).lower()
-                result=stringer.find(information.lower())
-                if result!=-1:
-                    askedMovies[movie.get_Id()]=movie
+        
+        for key in self.__movies:
+            movie=self.__movies[key]
+            fields={1:movie.get_Id,2:movie.get_title,3:movie.get_genre,4:movie.get_description}
+            stringer=str(fields[field]()).lower()
+            result=stringer.find(information.lower())
+            if result!=-1:
+                askedMovies[movie.get_Id()]=movie
         
         return askedMovies
 
