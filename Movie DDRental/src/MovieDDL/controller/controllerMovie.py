@@ -3,7 +3,6 @@ Created on 4 Nov 2016
 
 @author: DDL
 '''
-from MovieDDL.domain.Entities import Movie
 
 class movieController:
     '''
