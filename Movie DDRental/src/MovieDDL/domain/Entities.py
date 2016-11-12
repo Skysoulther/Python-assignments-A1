@@ -17,60 +17,77 @@ class Movie:
         '''
         Creates a movie
         '''
-        self._movieID=movID
-        self._title=title
-        self._description=desc
-        self._genre=genre
+        self.__movieID=movID
+        self.__title=title
+        self.__description=desc
+        self.__genre=genre
         
     def __str__(self):
-        mov1=6-len(str(self._movieID))
-        mov2=52-len(str(self._title))
-        mov3=15-len(str(self._genre))
-        movieString=str(self._movieID)+" "*mov1+str(self._title)+" "*mov2+str(self._genre)[:1].upper()+str(self._genre)[1:]+" "*mov3
+        '''
+        Creates a string for a movie
+        Output: movieString - movie as a string
+        '''
+        mov1=6-len(str(self.__movieID))
+        mov2=52-len(str(self.__title))
+        mov3=15-len(str(self.__genre))
+        movieString=str(self.__movieID)+" "*mov1+str(self.__title)+" "*mov2+str(self.__genre)[:1].upper()+str(self.__genre)[1:]+" "*mov3
         return movieString
     
     def get_title(self):
         '''
         Get the title of the movie
+        Output: self.__title - the title of the movie
         '''
-        return self._title
+        return self.__title
     
     def set_title(self,title):
         '''
         Set the tile of the movie
+        Input: title - the new title of the movie
         '''
-        self._title=title
+        self.__title=title
     
     def get_Id(self):
         '''
         Get the Id of the movie
+        Output: self.__movieID - the Id of the movie
         '''
-        return self._movieID
+        return self.__movieID
+    
     def set_Id(self,Id):
         '''
         Set the Id of the movie
+        Input: Id - the Id of the new movie
         '''
-        self._movieID=Id
+        self.__movieID=Id
+        
     def get_genre(self):
         '''
         Get the genre of the movie
+        Output: self.__genre - the genre of the movie
         '''
-        return self._genre
+        return self.__genre
+    
     def set_genre(self,genre):
         '''
         Set the genre of the movie
+        Input: genre - the new genre of the movie
         '''
-        self._genre=genre
+        self.__genre=genre
+    
     def get_description(self):
         '''
         Get the description of the movie
+        Output: self.__description - the description of the movie
         '''
-        return self._description
+        return self.__description
+    
     def set_descriprion(self, desc):
         '''
         set the description of the movie
+        Input: desc - the new description of the movie
         '''
-        self._description=desc
+        self.__description=desc
         
 #############################################################################################
     
@@ -82,130 +99,170 @@ class Client:
         '''
         Creates a client
         '''
-        self._clientID=clientID
-        self._name=name
-        self._rentedDays=0
+        self.__clientID=clientID
+        self.__name=name
+        self.__rentedDays=0
     
     def __str__(self):
         '''
         Writes the data for clients in a better way
+        output: clientString - client as a string
         '''
-        cli1=5-len(str(self._clientID))
-        cli2=25-len(str(self._name))
-        clientString=str(self._clientID)+" "*cli1+str(self._name)+" "*cli2
+        cli1=6-len(str(self.__clientID))
+        cli2=25-len(str(self.__name))
+        clientString=str(self.__clientID)+" "*cli1+str(self.__name)+" "*cli2
         return clientString
     
     def get_clientName(self):
         '''
         Get the name of the client
+        Output: self.__name - the name of the client
         '''
-        return self._name
+        return self.__name
     
     def set_clientName(self,name):
         '''
         Set the name of the client
+        Input: name - the new name of the client
         '''
-        self._name=name
+        self.__name=name
+        
     def get_clientID(self):
         '''
         Get the id of the client
+        Output: self.__clientID - the Id of the client
         '''
-        return self._clientID
+        return self.__clientID
     
     def set_clientID(self, Id):
         '''
         Set the id of the client
+        Input: Id - the new Id of the client
         '''
-        self._clientID=Id
+        self.__clientID=Id
 
 ###########################################################################################
         
 class Rental:
     '''
-    Class for rented movie
+    Class for rentals
     '''
-    def __init__(self,rentID,movID,clientID,rentDate,dueDate):
+    def __init__(self,rentID,movie,client,rentDate,dueDate):
         '''
-        Creates a rented movie
+        Creates a rental
         '''
-        self._rentalID=rentID
-        self._rmovieID=movID
-        self._rclientID=clientID
-        self._rentDate=rentDate
-        self._dueDate=dueDate
+        self.__rentalID=rentID
+        self.__rmovieID=movie.get_Id()
+        self.__rclientID=client.get_clientID()
+        self.__rentDate=rentDate
+        self.__dueDate=dueDate
+        self.__returnDate=None
+    
+    def __str__(self):
+        '''
+        Shows a rental as a string
+        Output rentalString - rental as a string
+        '''
+        ren1=7-len(str(self.__rentalID))
+        ren2=7-len(str(self.__rmovieID))
+        ren3=7-len(str(self.__rclientID))
+        ren4=12-len(str(self.__rentDate))
+        ren5=12-len(str(self.__dueDate))
+        rentalString=str(self.__rentalID)+" "*ren1+str(self.__rmovieID)+" "*ren2+str(self.__rclientID)+" "*ren3
+        rentalString+=str(self.__rentDate)+" "*ren4+str(self.__dueDate)+" "*ren5                 
+        return rentalString
     
     def get_rentalId(self):
         '''
         Get the Id of the rental
+        Output: self._rentalID - the Id of the rental
         '''
-        return self._rentalID
+        return self.__rentalID
     
     def set_rentalId(self,Id):
         '''
         Set the Id of the rental
+        Input: Id - the id we want to set for the rental
         '''
-        self._rentalID=Id
+        self.__rentalID=Id
     
     def get_rmovieId(self):
         '''
         Get the Id of the rented movie
+        Output: self._rmovieID - the id of the rented movie
         '''
-        return self._rmovieID
+        return self.__rmovieID
+    
     def set_rmovieId(self, Id):
         '''
         Set the Id of the rented movie
+        Input: Id - the id of the movie
         '''
-        self._rmovieID=Id
+        self.__rmovieID=Id
     
     def get_rclientId(self):
         '''
         Get the Id of the client who rented the movie
+        Output: self._rclientID - the Id of a client in rental list
         '''
-        return self._rclientID
+        return self.__rclientID
     
     def set_rclientId(self, Id):
         '''
         Set the Id of the client who rented the movie
+        Input: Id - the new Id of a client in rental list
         '''
-        self._rclientID=Id
+        self.__rclientID=Id
     
     def get_rentDate(self):
         '''
         Get the date when the movie was rented
+        Output: self._rentDate - the date when the movie was rented
         '''
-        return self._rentDate
+        return self.__rentDate
     
     def set_rentDate(self,day,month,year):
         '''
         Set the date when the movie was rented
+        Input: day - a number representing a day in a month
+               month - a number representing a month
+               year - a number representing a year
         '''
         rDate=datetime.date(year=year,month=month,day=day)
-        self._rentDate=rDate
+        self.__rentDate=rDate
         
     def get_dueDate(self):
         '''
-        Get the date when the movie should be returned
+        Get the final date when the movie should be returned
+        Output: self._dueDate - the duedate of the movie
         '''
-        return self._dueDate
+        return self.__dueDate
     
     def set_dueDate(self, day, month, year):
         '''
         Set the date when the movie should be returned
+        Input: day - a number representing a day in a month
+               month - a number representing a month
+               year - a number representing a year
         '''
         dDate=datetime.date(day=day,month=month,year=year)
-        self._dueDate=dDate
+        self.__dueDate=dDate
     
     def set_returnedDate(self, day, month, year):
         '''
         Set the date when the movie returned
+        Input: day - a number representing a day in a month
+               month - a number representing a month
+               year - a number representing a year
         '''
-        self._returnDate=datetime.date(year=year, month=month,day=day)
+        self.__returnDate=datetime.date(year=year, month=month,day=day)
         
     def get_returnedDate(self):
         '''
         Get the date when the movie returned
+        Output: self._returnDate - the date when the movie was returned
         '''
-        return self._returnDate
+        return self.__returnDate
     
 
 def testMovieClass():
@@ -216,14 +273,15 @@ def testMovieClass():
     assert movie1.get_Id()==13
     assert movie1.get_title()=="A beautiful Mind"
     assert movie1.get_genre()=="Biography"
-    assert movie1.get_descrption()=="A movie about the life of John Nash"
+    assert movie1.get_description()=="A movie about the life of John Nash"
+    assert str(movie1)=="13    "+"A beautiful Mind"+" "*(52-len(movie1.get_title()))+"Biography"+" "*6
     movie1.set_Id(18)
     assert movie1.get_Id()==18
     assert movie1.get_title()=="A beautiful Mind"
     movie1.set_title("The last day of summer")
     assert movie1.get_title()=="The last day of summer"
     movie1.set_descriprion("A movie about summer")
-    assert movie1.get_descrption()=="A movie about summer"
+    assert movie1.get_description()=="A movie about summer"
     movie1.set_genre("Comedy")
     assert movie1.get_genre()=="Comedy"
 
@@ -234,6 +292,7 @@ def testClientClass():
     client1=Client(47,"Sergiu Gherman")
     assert client1.get_clientID()==47
     assert client1.get_clientName()=="Sergiu Gherman"
+    assert str(client1)=="47    "+"Sergiu Gherman"+" "*11
     client1.set_clientID(48)
     assert client1.get_clientID()==48
     client1.set_clientName("Bobby")
@@ -245,14 +304,17 @@ def testRentalClass():
     '''
     rDate=datetime.date(year=2016, month=10, day=30)
     dDate=datetime.date(year=2016, month=11, day=7)
-    rental1=Rental(1,17,20,rDate,dDate)
+    movie1=Movie(13,"A beautiful Mind","A movie about the life of John Nash","Biography")
+    client1=Client(47,"Sergiu Gherman")
+    rental1=Rental(1,movie1,client1,rDate,dDate)
     assert rental1.get_rentalId()==1
-    assert rental1.get_rmovieId()==17
-    assert rental1.get_rclientId()==20
+    assert rental1.get_rmovieId()==13
+    assert rental1.get_rclientId()==47
     assert rental1.get_rentDate()==datetime.date(year=2016,month=10,day=30)
     assert rental1.get_dueDate().year==2016
     assert rental1.get_dueDate().month==11
     assert rental1.get_dueDate().day==7
+    assert str(rental1)=="1"+" "*6+"13"+" "*5+"47"+" "*5+str(rental1.get_rentDate())+"  "+str(rental1.get_dueDate())+"  "
     rental1.set_rentalId(2)
     assert rental1.get_rentalId()==2
     rental1.set_rmovieId(18)
@@ -266,10 +328,13 @@ def testRentalClass():
     rental1.set_returnedDate(15, 11, 2017)
     assert rental1.get_returnedDate()==datetime.date(day=15,month=11,year=2017)
        
-def runAllTests():
+def runEntitiesTests():
+    '''
+    Runs all the tests in this module
+    '''
     testMovieClass()
     testClientClass()
     testRentalClass()
     print("well done!")
     
-#runAllTests()
+#runEntitiesTests()
