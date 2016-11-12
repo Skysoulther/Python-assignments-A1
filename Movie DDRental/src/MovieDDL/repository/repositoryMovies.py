@@ -4,7 +4,6 @@ Created on 4 Nov 2016
 @author: DDL
 '''
 from MovieDDL.domain.Entities import Movie
-from MovieDDL.domain.Validator import MovieValidator
 
 class movieRepository:
     '''
@@ -22,7 +21,7 @@ class movieRepository:
         Adds a movie in the repository
         Input: movie - an object of the class Movie
         Output: -
-        Exceptions: ValueError from validator or if the ID is already used
+        Exceptions: RepositoryException from validator or if the ID is already used
         '''
         movie=Movie(movie[0],movie[1],movie[3],movie[2])
         self.__validator.validateMovie(movie)
@@ -30,17 +29,16 @@ class movieRepository:
         if not self.find_by_ID(Id):
             self.__movies[Id]=movie
         else:
-            raise ValueError("A movie with the same ID already in the list\n")
+            raise RepositoryException("A movie with the same ID already in the list\n")
     
     def remove_movie(self, Id):
         '''
         Removes a movie from the repository
         Input: Id - a number
         Output: -
-        Exceptions: ValueError from validator or if the ID is not in the list
+        Exceptions: RepositoryException from validator or if the ID is not in the list
         '''
         self.__validator.validateID(Id)
-        Id=int(Id)
         if self.find_by_ID(Id):
             self.__movies.pop(Id)
         else:
@@ -51,10 +49,9 @@ class movieRepository:
         Returns a movie with a certain Id
         Input: Id - a number
         Output: self._movies[Id] - a movie having the ID Id
-        Exceptions: ValueError if there is no movie with that Id
+        Exceptions: RepositoryException if there is no movie with that Id
         '''
         self.__validator.validateID(Id)
-        Id=int(Id)
         if not self.find_by_ID(Id):
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
         else:
@@ -81,7 +78,7 @@ class movieRepository:
     
     def search_movie(self,field,information):
         '''
-        Searches movies with certain properties in the repository in the repository
+        Searches movies with certain properties in the repository
         Input: field - the field used for searching
                information - a partial string which is used for searching
         '''
@@ -144,33 +141,38 @@ def testRepositoryMovies():
     '''
     Test this repository
     '''
+    from MovieDDL.domain.Validator import MovieValidator
     repoList={1:Movie(1,"Test1","Description1","comedy"),
               2:Movie(2,"Test2","Description2","horror"),
               3:Movie(3,"Test3","Description3","action")}
-    movie1=Movie(17,"Test17","Description17","western")
-    movie2=Movie(2,"Test56","Description56","horror")
+    movieList1=[17,"Test17","western","Description17"]
+    movieList2=[2,"Test56","horror","Description56"]
     validator1=MovieValidator()
     repoTest=movieRepository(validator1,repoList)
-    repoTest.add_movie(movie1)
+    repoTest.add_movie(movieList1)
     try:
-        repoTest.add_movie(movie2)
+        repoTest.add_movie(movieList2)
         assert False
-    except ValueError:
+    except RepositoryException:
         assert True
     try:
         repoTest.remove_movie(4)
         assert False
-    except ValueError:
+    except RepositoryException:
         assert True
     repoTest.remove_movie(3)
     try:
         repoTest.return_movie_Id(3)
         assert False
-    except ValueError:
+    except RepositoryException:
         assert True
     assert repoTest.return_movie_Id(17).get_title()=="Test17"
     assert repoTest.find_by_ID(2)
     assert repoTest.find_by_ID(3)==False
     assert repoTest.search_movie(1, "5")=={}
+    assert len(repoTest.search_movie(2, "test"))==3
+    assert len(repoTest.search_movie(4, "descr"))==3
+    assert len(repoTest.search_movie(3, "ho"))==1
+    print("well done!")
 
 #testRepositoryMovies()

@@ -3,7 +3,6 @@ Created on 4 Nov 2016
 
 @author: DDL
 '''
-from MovieDDL.domain.Entities import Client
 
 class clientController():
     '''
@@ -22,8 +21,7 @@ class clientController():
         Output: -
         Exceptions: -
         '''
-        newClient=Client(client[0],client[1])
-        self._repository.add_client(newClient)
+        self._repository.add_client(client)
     
     def remove_client(self, Id):
         '''

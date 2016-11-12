@@ -61,7 +61,7 @@ class Menu:
             menuString+="3. Show all movies \n"
             menuString+="0. Go back to main menu \n"+"-"*30
             print(menuString)
-        
+                
         def _readMovie(self):
             '''
             read movie's data
@@ -85,8 +85,8 @@ class Menu:
                 self._movieController.add_movie(movie)
                 print("-"*30+"\nMovie was added!\n"+"-"*30)
                 self._press()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
                 
         def removeMovie(self):
@@ -98,8 +98,8 @@ class Menu:
                 self._movieController.remove_movie(removeId)
                 print("-"*30+"\nMovie was removed\n"+"-"*30)
                 self._press()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
             
         def seeDescrisption(self):
@@ -112,8 +112,8 @@ class Menu:
                 print("\nTitle: "+movie.get_title())
                 print("Description: "+movie.get_description()+"\n")
                 self._press()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
                 
         def printSeeDescription(self):
@@ -163,8 +163,8 @@ class Menu:
                 movies=self._movieController.get_allMovies()
                 self.printList(movies)
                 self.seeDescriptionMenu()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
         
         def RentSelectMovie(self,movies):
@@ -275,9 +275,12 @@ class Menu:
             Exceptions: -
             '''
             client=[]
-            client.append(input("Enter the ID of the client: "))
-            client.append(input("Enter the name of the client: "))
-            return client
+            try:
+                client.append(int(input("Enter the ID of the client: ")))
+                client.append(input("Enter the name of the client: "))
+                return client
+            except ValueError:
+                print("The ID should be a number!")
         
         def _press(self):
             '''
@@ -294,8 +297,8 @@ class Menu:
                 self._clientController.add_client(client)
                 print("-"*30+"\nClient was added\n"+"-"*30)
                 self._press()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
         
         def removeClient(self):
@@ -307,8 +310,8 @@ class Menu:
                 self._clientController.remove_client(removeId)
                 print("-"*30+"\nClient was removed!\n"+"-"*30)
                 self._press()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
         
             
@@ -326,8 +329,8 @@ class Menu:
                         print(str(clients[key]))
                 print("-"*40)
                 self._press()
-            except ValueError as ve:
-                print("-"*30+"\n"+str(ve)+"-"*30)
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
                 
         def manageClients(self):
@@ -348,6 +351,7 @@ class Menu:
                 except ValueError:
                     print("-"*30+"\nOption is invalid!\n"+"-"*30)
                     self._press()
+                
             
         def printClientsMenu(self):
             '''
