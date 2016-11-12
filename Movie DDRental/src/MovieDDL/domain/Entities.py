@@ -82,7 +82,7 @@ class Movie:
         '''
         return self.__description
     
-    def set_descriprion(self, desc):
+    def set_description(self, desc):
         '''
         set the description of the movie
         Input: desc - the new description of the movie
@@ -280,7 +280,7 @@ def testMovieClass():
     assert movie1.get_title()=="A beautiful Mind"
     movie1.set_title("The last day of summer")
     assert movie1.get_title()=="The last day of summer"
-    movie1.set_descriprion("A movie about summer")
+    movie1.set_description("A movie about summer")
     assert movie1.get_description()=="A movie about summer"
     movie1.set_genre("Comedy")
     assert movie1.get_genre()=="Comedy"

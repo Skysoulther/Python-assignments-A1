@@ -14,13 +14,25 @@ class movieController:
         '''
         self._repository=repoMovie
     
+    def _validateID(self,Id):
+        '''
+        Validates ID
+        Exceptions: Controller Exception when ID is not a number
+        '''
+        try:
+            Id=int(Id)
+        except ValueError:
+            raise ControllerException("The ID should be a number!\n")
+        
     def add_movie(self,movie):
         '''
         Add movie to the repository
         Input: movie -  a list which contains the values of the fields of a movie
         Output: -
-        Exceptions: -
+        Exceptions: Controller Exception when the Id of the movie is not valid
         '''
+        self._validateID(movie[0])
+        movie[0]=int(movie[0])
         self._repository.add_movie(movie)
     
     def remove_movie(self, Id):
@@ -28,8 +40,10 @@ class movieController:
         Remove a movie from the repository if it exists
         Input: Id - a natural number
         Output: -
-        Exceptions: -
+        Exceptions: Controller Exception when Id is not valid
         '''
+        self._validateID(Id)
+        Id=int(Id)
         self._repository.remove_movie(Id)
     
     def get_allMovies(self):
@@ -38,10 +52,23 @@ class movieController:
         '''
         return self._repository.get_all()
     
+    def edit_movie(self,Id,Desc):
+        '''
+        Edits the description of the movie with a certain ID
+        '''
+        self._validateID(Id)
+        Id=int(Id)
+        if self._repository.find_by_ID(Id):
+            self._repository.update_movie(Id,Desc)
+        else:
+            raise ControllerException("The movie you want to edit can't be found!\n")
+        
     def return_movie_Id(self,Id):
         '''
         Returns a movie with a certain Id
         '''
+        self._validateID(Id)
+        Id=int(Id)
         return self._repository.return_movie_Id(Id)
    
     def search_movie(self, field, information):
@@ -49,3 +76,23 @@ class movieController:
         Searches all the movies with the mentioned field and information
         '''
         return self._repository.search_movie(field,information)
+    
+################################################################################
+
+class ControllerException(Exception):
+    '''
+    Class for exceptions in controller
+    '''
+    def __init__(self,message):
+        '''
+        Creates an error message
+        '''
+        self.__message=message
+    
+    def __str__(self):
+        '''
+        Returns a message as a string
+        '''
+        return self.__message
+    
+#################################################################################

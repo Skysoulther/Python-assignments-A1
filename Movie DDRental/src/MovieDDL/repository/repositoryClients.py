@@ -69,6 +69,12 @@ class clientRepository:
         else:
             return self.__clients[Id]
     
+    def update_client(self,Id,Name):
+        '''
+        Updates the client with a new name
+        '''
+        self.__clients[Id].set_clientName(Name)
+    
     def get_all(self):
         '''
         Gets the dictionary of clients

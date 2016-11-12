@@ -14,7 +14,7 @@ class Menu:
         #self._rentalController=renControl
         self._manageMovieMenu=self.ManageMovie(movControl)
         self._manageClientMenu=self.ManageClient(cliControl)
-        self._manageRentalMenu=self.ManageRental(movControl,cliControl,renControl)
+        self._manageRentalMenu=self.ManageRental(self._manageMovieMenu,self._manageClientMenu,renControl)
     
     class ManageMovie:
         '''
@@ -36,7 +36,8 @@ class Menu:
             '''
             The main menu for movies management
             '''
-            optionsMovie={1:self.addMovie,2:self.removeMovie,3:self.showAllMovies}
+            optionsMovie={1:self.addMovie,2:self.removeMovie,3:self.showAllMovies,4:self.editMovie,
+                          5:self.searchMovies}
             while True:
                 self.printMoviesMenu()
                 try:
@@ -59,6 +60,8 @@ class Menu:
             menuString+="1. Add movie \n"
             menuString+="2. Remove movie \n"
             menuString+="3. Show all movies \n"
+            menuString+="4. Edit the description of a movie \n"
+            menuString+="5. Search movie \n"
             menuString+="0. Go back to main menu \n"+"-"*30
             print(menuString)
                 
@@ -101,7 +104,21 @@ class Menu:
             except Exception as ex:
                 print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
-            
+        
+        def editMovie(self):
+            '''
+            UI to edit a description of a movie
+            '''
+            try:
+                editId=input("Enter the id of the movie that you want to edit: ")
+                editDesc=input("Add the new description: ")
+                self._movieController.edit_movie(editId,editDesc)
+                print("-"*30+"\nMovie was updated\n"+"-"*30)
+                self._press()
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
+                self._press()
+           
         def seeDescrisption(self):
             '''
             UI to see the description of a movie by ID
@@ -167,45 +184,7 @@ class Menu:
                 print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
         
-        def RentSelectMovie(self,movies):
-            '''
-            UI to rent a movie
-            '''
-            while True:
-                try:
-                    movieId=int(input("Enter the ID of the movie you want to rent (it should be from the list of movies you searched): "))
-                    if movieId in movies:
-                        pass
-                    else:
-                        raise ValueError
-                except ValueError:
-                    print("-"*30+"\nThe ID is invalid!\n"+"-"*30)
         
-        def printRentMenu(self):
-            '''
-            Prints a mini-menu for renting
-            '''
-            menuString="-"*35+"\n1. Rent one of these movies\n"
-            menuString+="0. Go back to choosing a field\n"+"-"*35
-            print(menuString)
-        
-        def RentMenu(self,movies):
-            '''
-            The menu for renting a movie
-            '''
-            while True:
-                self.printRentMenu()
-                try:
-                    opRent=int(input("Enter your option: "))
-                    if opRent==1:
-                        self.RentSelectMovie(movies)
-                    elif opRent==0:
-                        break
-                    else:
-                        raise ValueError
-                except ValueError:
-                    print("-"*30+"\n"+"Enter a valid option!"+"\n"+"-"*30)
-                    self._press()
             
         def _startSearch(self,field):
             '''
@@ -219,7 +198,7 @@ class Menu:
             askedMovies=self._movieController.search_movie(field,information)
             self.printList(askedMovies)
             if len(askedMovies)>0:
-                self.RentMenu(askedMovies)
+                self._press()
             else:
                 self._press()
         
@@ -275,12 +254,9 @@ class Menu:
             Exceptions: -
             '''
             client=[]
-            try:
-                client.append(int(input("Enter the ID of the client: ")))
-                client.append(input("Enter the name of the client: "))
-                return client
-            except ValueError:
-                print("The ID should be a number!")
+            client.appendinput("Enter the ID of the client: ")
+            client.append(input("Enter the name of the client: "))
+            return client
         
         def _press(self):
             '''
@@ -314,6 +290,17 @@ class Menu:
                 print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
         
+        def printList(self,lists):
+            '''
+            Print a list of movies
+            ''' 
+            print("\nID   NAME\n"+"-"*40)
+            if len(lists)==0:
+                print("There are no clients... We are broke")
+            else:
+                for key in lists:
+                    print(str(lists[key]))
+            print("-"*40)
             
         def showAllClients(self):
             '''
@@ -321,23 +308,31 @@ class Menu:
             '''
             try:
                 clients=self._clientController.get_allClients()
-                print("\nID   NAME\n"+"-"*40)
-                if len(clients)==0:
-                    print("There are no clients... We are broke")
-                else:
-                    for key in clients:
-                        print(str(clients[key]))
-                print("-"*40)
+                self.printList(clients)
                 self._press()
             except Exception as ex:
                 print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
-                
+            
+        def editClient(self):
+            '''
+            UI to edit a description of a movie
+            '''
+            try:
+                editId=input("Enter the id of the client that you want to edit: ")
+                editName=input("Enter the new name of the client: ")
+                self._clientController.edit_client(editId,editName)
+                print("-"*30+"\nClient was updated\n"+"-"*30)
+                self._press()
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
+                self._press()
+               
         def manageClients(self):
             '''
             the main menu for clients management
             '''
-            optionsClient={1:self.addClient,2:self.removeClient,3:self.showAllClients}
+            optionsClient={1:self.addClient,2:self.removeClient,3:self.showAllClients,4:self.editClient}
             while True:
                 self.printClientsMenu()
                 try:
@@ -361,6 +356,7 @@ class Menu:
             menuString+="1. Add client \n"
             menuString+="2. Remove client \n"
             menuString+="3. Show all clients \n"
+            menuString+="4. Edit the name of a client\n"
             menuString+="0. Go back to main menu \n"+"-"*30
             print(menuString)
     
@@ -376,6 +372,46 @@ class Menu:
             '''
             self._movieController=movControl
             self._clientController=cliControl
+        
+        def RentSelectMovie(self,movies):
+            '''
+            UI to rent a movie
+            '''
+            while True:
+                try:
+                    movieId=int(input("Enter the ID of the movie you want to rent (it should be from the list of movies you searched): "))
+                    if movieId in movies:
+                        pass
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("-"*30+"\nThe ID is invalid!\n"+"-"*30)
+        
+        def printRentMenu(self):
+            '''
+            Prints a mini-menu for renting
+            '''
+            menuString="-"*35+"\n1. Rent one of these movies\n"
+            menuString+="0. Go back to choosing a field\n"+"-"*35
+            print(menuString)
+        
+        def RentMenu(self,movies):
+            '''
+            The menu for renting a movie
+            '''
+            while True:
+                self.printRentMenu()
+                try:
+                    opRent=int(input("Enter your option: "))
+                    if opRent==1:
+                        self.RentSelectMovie(movies)
+                    elif opRent==0:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("-"*30+"\n"+"Enter a valid option!"+"\n"+"-"*30)
+                    self._press()
             
     #########################################################################
     

@@ -56,7 +56,13 @@ class movieRepository:
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
         else:
             return self.__movies[Id]
-                
+        
+    def update_movie(self,Id,Desc):
+        '''
+        Updates the movie with a new description
+        '''
+        self.__movies[Id].set_description(Desc)
+            
     def get_all(self):
         '''
         Gets the dictionary of movies
