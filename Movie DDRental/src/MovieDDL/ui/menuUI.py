@@ -3,6 +3,7 @@ Created on 4 Nov 2016
 
 @author: DDL
 '''
+import datetime
 
 class Menu:
     def __init__(self,movControl,cliControl,renControl):
@@ -14,7 +15,7 @@ class Menu:
         #self._rentalController=renControl
         self._manageMovieMenu=self.ManageMovie(movControl)
         self._manageClientMenu=self.ManageClient(cliControl)
-        self._manageRentalMenu=self.ManageRental(self._manageMovieMenu,self._manageClientMenu,renControl)
+        self._manageRentalMenu=self.ManageRental(renControl)
     
     class ManageMovie:
         '''
@@ -59,7 +60,7 @@ class Menu:
             menuString="\n  Manage Movies \n"+"-"*30+"\n"
             menuString+="1. Add movie \n"
             menuString+="2. Remove movie \n"
-            menuString+="3. Show all movies \n"
+            menuString+="3. Show available movies \n"
             menuString+="4. Edit the description of a movie \n"
             menuString+="5. Search movie \n"
             menuString+="0. Go back to main menu \n"+"-"*30
@@ -337,10 +338,7 @@ class Menu:
             information=input(messages[field])
             askedClients=self._clientController.search_client(field,information)
             self.printList(askedClients)
-            if len(askedClients)>0:
-                self._press()
-            else:
-                self._press()
+            self._press()
         
         def searchClients(self):
             '''
@@ -411,45 +409,73 @@ class Menu:
         '''
         Class for managing the rental
         '''   
-        def __init__(self,movControl,cliControl,renControl):
+        def __init__(self,renControl):
             '''
-            Creates a rental mangement object
+            Creates a rental management object
             '''
-            self._movieController=movControl
-            self._clientController=cliControl
+            self._rentalController=renControl
         
-        def RentSelectMovie(self,movies):
+        def _press(self):
+            '''
+            Creates a pause to see what happens in the list
+            '''
+            input("Press any key to continue...")
+            
+        def generateRentalID(self):
+            '''
+            Generates a rental ID
+            '''
+            Rents=self._rentalController.get_all()
+            i=1
+            while i in Rents:
+                i+=1
+            return i
+            
+        def rentMovie(self):
             '''
             UI to rent a movie
             '''
-            while True:
-                try:
-                    movieId=int(input("Enter the ID of the movie you want to rent (it should be from the list of movies you searched): "))
-                    if movieId in movies:
-                        pass
-                    else:
-                        raise ValueError
-                except ValueError:
-                    print("-"*30+"\nThe ID is invalid!\n"+"-"*30)
+            try:
+                movieId=input("Enter the ID of the movie you want to rent: ")
+                self._rentalController.checks_movie(movieId)
+                clientId=input("Enter the ID of the client who rents the movie: ")
+                self._rentalController.checks_client(clientId)
+                rentalId=self.generateRentalID()
+                today=datetime.date.today()
+                rental=[rentalId,int(movieId),int(clientId),today]
+                self.RentMenu(rental)
+                self._press()
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
+                self._press()
         
         def printRentMenu(self):
             '''
-            Prints a mini-menu for renting
+            shows the menu for renting
             '''
-            menuString="-"*35+"\n1. Rent one of these movies\n"
-            menuString+="0. Go back to choosing a field\n"+"-"*35
+            menuString="\n Choose the period of time: \n"+"-"*30+"\n"
+            menuString+="1. 1 week \n"
+            menuString+="2. 2 weeks \n"
+            menuString+="3. 1 month (30 days) \n"
+            menuString+="4. 2 months (60 days)\n"
+            menuString+="0. Go back to main menu \n"+"-"*30
             print(menuString)
-        
-        def RentMenu(self,movies):
+                   
+        def RentMenu(self,rental):
             '''
             The menu for renting a movie
             '''
+            options={1:7,2:14,3:30,4:60}
             while True:
                 self.printRentMenu()
                 try:
                     opRent=int(input("Enter your option: "))
-                    if opRent==1:
-                        self.RentSelectMovie(movies)
+                    if opRent in options:
+                        dueDate=rental[3]+datetime.timedelta(days=options[opRent])
+                        rental.append(dueDate)
+                        self._rentalController.rent_movie(rental)
+                        print("-"*50+"\nThe movie was rented! Return Date: "+str(dueDate.strftime ("%d.%m.%Y"))+"\n"+"-"*50)
+                        break
                     elif opRent==0:
                         break
                     else:
@@ -467,7 +493,7 @@ class Menu:
         menuString="\n  Available options \n"+"-"*30+"\n"
         menuString+="1. Manage movies \n"
         menuString+="2. Manage clients \n"
-        menuString+="3. Search movies & Rent movies \n"
+        menuString+="3. Rent movies \n"
         menuString+="4. Return a movie\n"
         menuString+="0. Exit\n"+"-"*30
         print(menuString)
@@ -480,7 +506,7 @@ class Menu:
         
     def run(self):
         options={1:self._manageMovieMenu.manageMovies, 2:self._manageClientMenu.manageClients,
-                 3:self._manageMovieMenu.searchMovies}
+                 3:self._manageRentalMenu.rentMovie}
         while True:
             self._printMenu()
             try:

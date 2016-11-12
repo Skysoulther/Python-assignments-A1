@@ -21,6 +21,7 @@ class Movie:
         self.__title=title
         self.__description=desc
         self.__genre=genre
+        self.__available=True
         
     def __str__(self):
         '''
@@ -88,6 +89,21 @@ class Movie:
         Input: desc - the new description of the movie
         '''
         self.__description=desc
+    
+    def get_availability(self):
+        '''
+        Get True if the movie is available and False if it is not
+        Output: self.__available - True or False
+        '''
+        return self.__available
+    
+    def set_availability(self,booly):
+        '''
+        Set the availability of the movie
+        Input: booly - a boolean value
+        '''
+        self.__available=booly
+        
         
 #############################################################################################
     
@@ -147,13 +163,13 @@ class Rental:
     '''
     Class for rentals
     '''
-    def __init__(self,rentID,movie,client,rentDate,dueDate):
+    def __init__(self,rentID,movID,cliID,rentDate,dueDate):
         '''
         Creates a rental
         '''
         self.__rentalID=rentID
-        self.__rmovieID=movie.get_Id()
-        self.__rclientID=client.get_clientID()
+        self.__rmovieID=movID
+        self.__rclientID=cliID
         self.__rentDate=rentDate
         self.__dueDate=dueDate
         self.__returnDate=None

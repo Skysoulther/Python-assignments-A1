@@ -70,6 +70,27 @@ class movieRepository:
         '''
         return self.__movies
     
+    def get_available(self):
+        '''
+        Gets the available list
+        Output: availableMovies - a dictionary of availableMovies
+        '''
+        availableMovies={}
+        for key in self.__movies:
+            movie=self.__movies[key]
+            if movie.get_availability():
+                availableMovies[movie.get_Id()]=movie
+        
+        return availableMovies
+    
+    def change_availability(self,Id,booly):
+        '''
+        Changes the availability of a movie with ID Id in booly
+        Input: Id - a number
+               booly - True or False
+        '''
+        self.__movies[Id].set_availability(booly)
+    
     def find_by_ID(self,Id):
         '''
         Checks if the Id is in the list of movies
@@ -95,7 +116,7 @@ class movieRepository:
             fields={1:movie.get_Id,2:movie.get_title,3:movie.get_genre,4:movie.get_description}
             stringer=str(fields[field]()).lower()
             result=stringer.find(information.lower())
-            if result!=-1:
+            if result!=-1 and movie.get_availability():
                 askedMovies[movie.get_Id()]=movie
         
         return askedMovies

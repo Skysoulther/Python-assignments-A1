@@ -31,8 +31,6 @@ class movieController:
         Output: -
         Exceptions: Controller Exception when the Id of the movie is not valid
         '''
-        self._validateID(movie[0])
-        movie[0]=int(movie[0])
         self._repository.add_movie(movie)
     
     def remove_movie(self, Id):
@@ -50,7 +48,7 @@ class movieController:
         '''
         Returns the list of available movies
         '''
-        return self._repository.get_all()
+        return self._repository.get_available()
     
     def edit_movie(self,Id,Desc):
         '''
@@ -69,7 +67,9 @@ class movieController:
         '''
         self._validateID(Id)
         Id=int(Id)
-        return self._repository.return_movie_Id(Id)
+        movie=self._repository.return_movie_Id(Id)
+        if not movie.get_availability():
+            raise ControllerException("The movie is not available!\n")
    
     def search_movie(self, field, information):
         '''

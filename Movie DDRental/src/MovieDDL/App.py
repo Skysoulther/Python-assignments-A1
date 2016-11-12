@@ -3,6 +3,7 @@ Created on 5 Nov 2016
 
 @author: DDL
 '''
+import datetime
 from MovieDDL.domain import Entities, Validator
 from MovieDDL.controller import controllerMovie
 from MovieDDL.controller import controllerClient
@@ -26,7 +27,12 @@ class Application():
                 7:Entities.Movie(7,"The Good, the Bad and the Ugly","A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.","Western"),
                 8:Entities.Movie(8,"Fight Club","An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more.","Drama"),
                 9:Entities.Movie(9,"The Lord of the Rings: The Fellowship of the Ring","A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle Earth from the Dark Lord Sauron.","Adventure"),
-                10:Entities.Movie(10,"Monty Python and the Holy Grail","King Arthur and his knights embark on a low-budget search for the Grail, encountering many, very silly obstacles.","Comedy")
+                10:Entities.Movie(10,"Monty Python and the Holy Grail","King Arthur and his knights embark on a low-budget search for the Grail, encountering many, very silly obstacles.","Comedy"),
+                11:Entities.Movie(11,"Doctor Strange","A former neurosurgeon embarks on a journey of healing only to be drawn into the world of the mystic arts.","Fantasy"),
+                12:Entities.Movie(12,"Hacksaw Ridge","WWII American Army Medic Desmond T. Doss, who served during the Battle of Okinawa, refuses to kill people and becomes the first Conscientious Objector in American history to be awarded the Medal of Honor.","Biography"),
+                13:Entities.Movie(13,"Suicide Squad","A secret government agency recruits some of the most dangerous incarcerated super-villains to form a defensive task force. Their first mission: save the world from the apocalypse.","Action"),
+                14:Entities.Movie(14,"Doctor Strange","A former neurosurgeon embarks on a journey of healing only to be drawn into the world of the mystic arts.","Fantasy"),
+                15:Entities.Movie(15,"Mr. Nobody","A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.","Fantasy"),
                 }
         clients={1:Entities.Client(1,"Popescu Ion"),
                  2:Entities.Client(2,"Martinescu Martin"),
@@ -39,7 +45,22 @@ class Application():
                  9:Entities.Client(9,"5QY7 Bot"),
                  10:Entities.Client(10,"Mr Nobody")
                  }
-        rentals={}
+        for i in range(11,16):
+            movies[i].set_availability(False)
+        rentals={1:Entities.Rental(1,13,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016)),
+                 2:Entities.Rental(2,14,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=26,month=11,year=2016)),
+                 3:Entities.Rental(3,12,1,datetime.date(day=1,month=11,year=2016),datetime.date(day=8,month=11,year=2016)),
+                 4:Entities.Rental(4,15,10,datetime.date(day=10,month=11,year=2016),datetime.date(day=13,month=11,year=2017)),
+                 5:Entities.Rental(5,11,1,datetime.date(day=7,month=11,year=2016),datetime.date(day=14,month=11,year=2016))
+                 }
+        '''
+                 6:Entities.Rental(6,8,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016)),
+                 7:Entities.Rental(7,8,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016)),
+                 8:Entities.Rental(8,8,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016)),
+                 9:Entities.Rental(9,8,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016)),
+                 10:Entities.Rental(10,8,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016))
+                 }
+        '''
         movieValid=Validator.MovieValidator()
         clientValid=Validator.ClientValidator()
         rentalValid=Validator.RentalValidator()
@@ -48,7 +69,7 @@ class Application():
         rentalRepo=repositoryRentals.rentalRepository(rentalValid,rentals)
         movieControl=controllerMovie.movieController(movieRepo)
         clientControl=controllerClient.clientController(clientRepo)
-        rentalControl=controllerRental.rentalController(rentalRepo)
+        rentalControl=controllerRental.rentalController(movieRepo,clientRepo,rentalRepo)
         self._mainMenu=menuUI.Menu(movieControl,clientControl,rentalControl)
     
     def run(self):
