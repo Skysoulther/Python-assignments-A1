@@ -255,7 +255,7 @@ class Menu:
             Exceptions: -
             '''
             client=[]
-            client.appendinput("Enter the ID of the client: ")
+            client.append(input("Enter the ID of the client: "))
             client.append(input("Enter the name of the client: "))
             return client
         

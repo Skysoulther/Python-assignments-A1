@@ -4,6 +4,7 @@ Created on 4 Nov 2016
 @author: DDL
 '''
 from MovieDDL.domain.Entities import Movie
+from MovieDDL.repository.RepositoryExceptions import RepositoryException
 
 class movieRepository:
     '''
@@ -25,7 +26,7 @@ class movieRepository:
         '''
         movie=Movie(movie[0],movie[1],movie[3],movie[2])
         self.__validator.validateMovie(movie)
-        Id=int(movie.get_Id())
+        Id=movie.get_Id()
         if not self.find_by_ID(Id):
             self.__movies[Id]=movie
         else:
@@ -39,7 +40,7 @@ class movieRepository:
         Exceptions: RepositoryException from validator or if the ID is not in the list
         '''
         self.__validator.validateID(Id)
-        if self.find_by_ID(Id):
+        if self.find_by_ID(Id) and self.__movies[Id].get_availability():
             self.__movies.pop(Id)
         else:
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
@@ -122,23 +123,6 @@ class movieRepository:
         return askedMovies
 
 ###########################################################################
-
-class RepositoryException(Exception):
-    '''
-    Class for Repository Exceptions
-    '''
-    def __init__(self, message):
-        '''
-        Creates an error message
-        '''
-        self.__message=message
-    
-    def __str__(self):
-        '''
-        Returns a message as a string
-        '''
-        return self.__message
-
 ################################################################################
 
 def testRepositoryMovies():

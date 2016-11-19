@@ -3,7 +3,7 @@ Created on 4 Nov 2016
 
 @author: DDL
 '''
-
+from MovieDDL.controller.ControllerExceptions import ControllerException
 class movieController:
     '''
     Contains functions which operates on movies
@@ -31,6 +31,8 @@ class movieController:
         Output: -
         Exceptions: Controller Exception when the Id of the movie is not valid
         '''
+        self._validateID(movie[0])
+        movie[0]=int(movie[0])
         self._repository.add_movie(movie)
     
     def remove_movie(self, Id):
@@ -70,6 +72,8 @@ class movieController:
         movie=self._repository.return_movie_Id(Id)
         if not movie.get_availability():
             raise ControllerException("The movie is not available!\n")
+        else:
+            return movie
    
     def search_movie(self, field, information):
         '''
@@ -79,20 +83,4 @@ class movieController:
     
 ################################################################################
 
-class ControllerException(Exception):
-    '''
-    Class for exceptions in controller
-    '''
-    def __init__(self,message):
-        '''
-        Creates an error message
-        '''
-        self.__message=message
-    
-    def __str__(self):
-        '''
-        Returns a message as a string
-        '''
-        return self.__message
-    
 #################################################################################

@@ -5,13 +5,13 @@ Created on 5 Nov 2016
 '''
 import datetime
 from MovieDDL.domain import Entities, Validator
-from MovieDDL.controller import controllerMovie
-from MovieDDL.controller import controllerClient
-from MovieDDL.controller import controllerRental
-from MovieDDL.ui import menuUI
-from MovieDDL.repository import repositoryMovies
-from MovieDDL.repository import repositoryClients
-from MovieDDL.repository import repositoryRentals
+from MovieDDL.controller import ControllerMovie
+from MovieDDL.controller import ControllerClient
+from MovieDDL.controller import ControllerRental
+from MovieDDL.ui import MenuUI
+from MovieDDL.repository import RepositoryMovies
+from MovieDDL.repository import RepositoryClients
+from MovieDDL.repository import RepositoryRentals
 
 class Application():
     def __init__(self):
@@ -64,13 +64,13 @@ class Application():
         movieValid=Validator.MovieValidator()
         clientValid=Validator.ClientValidator()
         rentalValid=Validator.RentalValidator()
-        movieRepo=repositoryMovies.movieRepository(movieValid,movies)
-        clientRepo=repositoryClients.clientRepository(clientValid,clients)
-        rentalRepo=repositoryRentals.rentalRepository(rentalValid,rentals)
-        movieControl=controllerMovie.movieController(movieRepo)
-        clientControl=controllerClient.clientController(clientRepo)
-        rentalControl=controllerRental.rentalController(movieRepo,clientRepo,rentalRepo)
-        self._mainMenu=menuUI.Menu(movieControl,clientControl,rentalControl)
+        movieRepo=RepositoryMovies.movieRepository(movieValid,movies)
+        clientRepo=RepositoryClients.clientRepository(clientValid,clients)
+        rentalRepo=RepositoryRentals.rentalRepository(rentalValid,rentals)
+        movieControl=ControllerMovie.movieController(movieRepo)
+        clientControl=ControllerClient.clientController(clientRepo)
+        rentalControl=ControllerRental.rentalController(movieRepo,clientRepo,rentalRepo)
+        self._mainMenu=MenuUI.Menu(movieControl,clientControl,rentalControl)
     
     def run(self):
         '''

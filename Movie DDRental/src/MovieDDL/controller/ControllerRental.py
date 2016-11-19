@@ -3,8 +3,7 @@ Created on 6 Nov 2016
 
 @author: DDL
 '''
-from MovieDDL.domain.Entities import Rental
-
+from MovieDDL.controller.ControllerExceptions import ControllerException
 class rentalController:
     '''
     Contains functions which operates on rentals
@@ -72,21 +71,4 @@ class rentalController:
         self._repositoryMovie.change_availability(rental[1],False)
         
 ####################################################################################
-
-class ControllerException(Exception):
-    '''
-    Class for exceptions in controller
-    '''
-    def __init__(self,message):
-        '''
-        Creates an error message
-        '''
-        self.__message=message
-    
-    def __str__(self):
-        '''
-        Returns a message as a string
-        '''
-        return self.__message
-    
 #################################################################################
