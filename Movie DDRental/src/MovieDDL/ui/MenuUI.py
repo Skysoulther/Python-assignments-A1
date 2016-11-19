@@ -420,17 +420,23 @@ class Menu:
             Creates a pause to see what happens in the list
             '''
             input("Press any key to continue...")
-            
-        def generateRentalID(self):
+        
+        def returnMovie(self):
             '''
-            Generates a rental ID
+            UI to return a movie
             '''
-            Rents=self._rentalController.get_all()
-            i=1
-            while i in Rents:
-                i+=1
-            return i
-            
+            try:
+                clientId=input("Enter the ID of the client: ")
+                self._rentalController.checks_client(clientId)
+                movieId=input("Enter the ID of the movie you want to return: ")
+                self._rentalController.checks_movie2(movieId)
+                self._rentalController.return_rental(clientId,movieId)
+                print("-"*30+"\nMovie was returned!\n"+"-"*30)
+                self._press()
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
+                self._press()    
+        
         def rentMovie(self):
             '''
             UI to rent a movie
@@ -440,9 +446,8 @@ class Menu:
                 self._rentalController.checks_movie(movieId)
                 clientId=input("Enter the ID of the client who rents the movie: ")
                 self._rentalController.checks_client(clientId)
-                rentalId=self.generateRentalID()
                 today=datetime.date.today()
-                rental=[rentalId,int(movieId),int(clientId),today]
+                rental=[int(movieId),int(clientId),today]
                 self.RentMenu(rental)
                 self._press()
             except Exception as ex:
@@ -471,7 +476,7 @@ class Menu:
                 try:
                     opRent=int(input("Enter your option: "))
                     if opRent in options:
-                        dueDate=rental[3]+datetime.timedelta(days=options[opRent])
+                        dueDate=rental[2]+datetime.timedelta(days=options[opRent])
                         rental.append(dueDate)
                         self._rentalController.rent_movie(rental)
                         print("-"*50+"\nThe movie was rented! Return Date: "+str(dueDate.strftime ("%d.%m.%Y"))+"\n"+"-"*50)
@@ -506,7 +511,7 @@ class Menu:
         
     def run(self):
         options={1:self._manageMovieMenu.manageMovies, 2:self._manageClientMenu.manageClients,
-                 3:self._manageRentalMenu.rentMovie}
+                 3:self._manageRentalMenu.rentMovie, 4:self._manageRentalMenu.returnMovie }
         while True:
             self._printMenu()
             try:

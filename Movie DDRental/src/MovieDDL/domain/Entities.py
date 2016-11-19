@@ -185,7 +185,7 @@ class Rental:
         ren4=12-len(str(self.__rentDate))
         ren5=12-len(str(self.__dueDate))
         rentalString=str(self.__rentalID)+" "*ren1+str(self.__rmovieID)+" "*ren2+str(self.__rclientID)+" "*ren3
-        rentalString+=str(self.__rentDate)+" "*ren4+str(self.__dueDate)+" "*ren5                 
+        rentalString+=str(self.__rentDate)+" "*ren4+str(self.__dueDate)+" "*ren5+str(self.__returnDate)                 
         return rentalString
     
     def get_rentalId(self):
@@ -264,14 +264,14 @@ class Rental:
         dDate=datetime.date(day=day,month=month,year=year)
         self.__dueDate=dDate
     
-    def set_returnedDate(self, day, month, year):
+    def set_returnedDate(self, date):
         '''
         Set the date when the movie returned
         Input: day - a number representing a day in a month
                month - a number representing a month
                year - a number representing a year
         '''
-        self.__returnDate=datetime.date(year=year, month=month,day=day)
+        self.__returnDate=date
         
     def get_returnedDate(self):
         '''

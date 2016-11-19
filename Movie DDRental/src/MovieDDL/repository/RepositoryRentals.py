@@ -52,18 +52,18 @@ class rentalRepository:
         else:
             raise RepositoryException("A rental with the same ID already in the list"+"\n")
     
-    def return_rental(self, Id):
+    def return_rental(self, clientId, movieId):
         '''
         Removes a rented movie from the repository
         Input: Id - a number
         Output: -
         Exceptions: RepositoryException if there is no rental with that specific ID
         '''
-        self._validator.validateID(Id)
-        if self.find_by_ID(Id):
-            self.__rentals[Id].set_returnedDate(datetime.date.today())
-        else:
-            raise RepositoryException("There is no rental with the ID: "+str(Id)+"\n")
+        for ID in self.__rentals:
+            if self.__rentals[ID].get_rclientId()==clientId and self.__rentals[ID].get_rmovieId()==movieId:
+                self.__rentals[ID].set_returnedDate(datetime.date.today())
+                return self.__rentals[ID]
+        raise RepositoryException("This client didn't rent this movie!\n")
         
 #####################################################################################
 ###############################################################################
