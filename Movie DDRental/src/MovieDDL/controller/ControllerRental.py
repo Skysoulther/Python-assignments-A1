@@ -4,6 +4,7 @@ Created on 6 Nov 2016
 @author: DDL
 '''
 from MovieDDL.controller.ControllerExceptions import ControllerException
+from operator import itemgetter
 import datetime
 
 class rentalController:
@@ -18,7 +19,7 @@ class rentalController:
         self._repositoryMovie=repoMovie
         self._repositoryClient=repoClient
     
-    def _generateRentalID(self,Id):
+    def _generate_rentalID(self,Id):
             '''
             Generates a rental ID
             '''
@@ -85,7 +86,7 @@ class rentalController:
         Output: -
         Exceptions: -
         '''
-        rentalId=self._generateRentalID(rental[1])
+        rentalId=self._generate_rentalID(rental[1])
         rental.insert(0,rentalId)
         self._repositoryRental.add_rental(rental)
         self._repositoryMovie.change_availability(rental[1],False)
@@ -119,6 +120,176 @@ class rentalController:
         movieId=int(movieId)
         rental=self._repositoryRental.return_rental(clientId,movieId)
         self._repositoryMovie.change_availability(rental.get_rmovieId(),True)
+    
+    def _createList(self, lista,typeL,addString="",lista2=[]):
+        '''
+        Turns a list into a string
+        Input: lista - a list of objects
+        Output: stringList -  the list as a string
+        Exceptions: -
+        '''
+        if typeL==1:
+            stringList="\nID    TITLE"+" "*47+"GENRE"+" "*10+addString+"\n"+"-"*85
+        elif typeL==2:
+            stringList="\nID    NAME"+" "*21+addString+"\n"+"-"*50
+        if(len(lista)==0):
+            stringList+="\n The list is empty!"
+        else:
+            for i in range(len(lista)):
+                if len(lista2)>0:
+                    stringList+="\n"+str(lista[i])+str(lista2[i])
+                else:
+                    stringList+="\n"+str(lista[i])
+        if typeL==1:
+            stringList+="\n"+"-"*85
+        elif typeL==2:
+            stringList+="\n"+"-"*50
+        return stringList
         
+    def all_rentals(self):
+        '''
+        returns a list of rentals
+        Input: -
+        Output: askedString - a string which represents the list of rentals
+        Exceptions: -
+        '''
+        rentedMovies=[]
+        allMovies=self._repositoryMovie.get_all()
+        for key in allMovies:
+            if not allMovies[key].get_availability():
+                rentedMovies.append(allMovies[key])
+        askedString=self._createList(rentedMovies,1)
+        askedString="\nThe list of all rented movies is:"+askedString
+        return askedString
+    
+    def _calculate_lateDays(self,dueDate,returnDate):
+        '''
+        Calculates the late rental days of a rental
+        Input: dueDate - duedate of the rental
+               returnDate - returndate of the movie
+        Output: delta.days - number of late rental days of a rental
+        Exceptions: -
+        '''
+        today=datetime.date.today()
+        delta=today-today
+        if today>dueDate:
+            if returnDate==None:
+                delta=today-dueDate
+            elif returnDate>dueDate:
+                delta=returnDate-dueDate
+        return delta.days
+    
+    def _calculate_days(self,rentDate,returnDate):
+        '''
+        Calculates the rental days of a rental
+        Input: rentDate - rent date of the rental
+               returnDate - returndate of the movie
+        Output: delta.days - number of late rental days of a rental
+        Exceptions: -
+        '''
+        today=datetime.date.today()
+        if returnDate==None:
+            delta=today-rentDate
+        else:
+            delta=returnDate-rentDate
+        return delta.days
+    
+    def late_rentals(self):
+        '''
+        returns a list of rentals which are late with their returns
+        Input: -
+        Output: askedString - a string which represents the list of late rentals
+        Exceptions: -
+        '''
+        list1=[]
+        list2=[]
+        list3=[]
+        allMovies=self._repositoryMovie.get_all()
+        rentals=self._repositoryRental.get_all()
+        for key in rentals:
+            dueDate=rentals[key].get_dueDate()
+            returnDate=rentals[key].get_returnedDate()
+            delta=self._calculate_lateDays(dueDate, returnDate)
+            if delta>0:
+                movieId=rentals[key].get_rmovieId()
+                list1.append([movieId,delta])
+        list1=sorted(list1,key=itemgetter(1),reverse=True)
+        for element in list1:
+            list2.append(allMovies[element[0]])
+            list3.append(element[1])
+        askedString=self._createList(list2, 1,"Days",list3)
+        askedString="\nThe list of late rentals in descending order is:"+askedString
+        return askedString
+        
+    def active_clients(self):
+        '''
+        returns a list of clients who rented movies pretty often
+        Input: -
+        Output: askedString - a string which represents the list of late rentals
+        Exceptions: -
+        '''
+        list1={}
+        list2=[]
+        list3=[]
+        allClients=self._repositoryClient.get_all()
+        for key in allClients:
+            list1[key]=0
+        rentals=self._repositoryRental.get_all()
+        for key in rentals:
+            rentDate=rentals[key].get_rentDate()
+            returnDate=rentals[key].get_returnedDate()
+            delta=self._calculate_days(rentDate, returnDate)
+            clientId=rentals[key].get_rclientId()
+            list1[clientId]+=delta
+        for key in list1:
+            list2.append([key,list1[key]])
+        list1=[]
+        list2=sorted(list2,key=itemgetter(1),reverse=True)
+        for element in list2:
+            list1.append(allClients[element[0]])
+            list3.append(element[1])
+        askedString=self._createList(list1, 2,"Rental Days",list3)
+        askedString="\nThe list of active clients in descending order is:"+askedString
+        return askedString
+    
+    def most_rented(self,option):
+        '''
+        Returns a list of movies which were rented the most
+        Input: -
+        Output: askedString - a string which represents the list of late rentals
+        Exceptions: -
+        '''
+        list1={}
+        list2=[]
+        list3=[]
+        allMovies=self._repositoryMovie.get_all()
+        for key in allMovies:
+            list1[key]=[0,0]
+        rentals=self._repositoryRental.get_all()
+        for key in rentals:
+            rentDate=rentals[key].get_rentDate()
+            returnDate=rentals[key].get_returnedDate()
+            delta=self._calculate_days(rentDate, returnDate)
+            movieId=rentals[key].get_rmovieId()
+            list1[movieId][0]+=delta
+            list1[movieId][1]+=1
+        for key in list1:
+            list2.append([key,list1[key][0],list1[key][1]])
+        list1=[]
+        if option==1:
+            list2=sorted(list2,key=itemgetter(1),reverse=True)
+            for element in list2:
+                list1.append(allMovies[element[0]])
+                list3.append(element[1])
+            askedString=self._createList(list1, 1,"Days",list3)
+        elif option==2:
+            list2=sorted(list2,key=itemgetter(2),reverse=True)
+            for element in list2:
+                list1.append(allMovies[element[0]])
+                list3.append(element[2])
+            askedString=self._createList(list1, 1,"Times",list3)
+        askedString="\nThe list of most rented movies in descending order is:"+askedString
+        return askedString
+                    
 ####################################################################################
 #################################################################################

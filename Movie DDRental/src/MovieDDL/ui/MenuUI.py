@@ -295,7 +295,7 @@ class Menu:
             '''
             Print a list of movies
             ''' 
-            print("\nID   NAME\n"+"-"*40)
+            print("\nID    NAME\n"+"-"*40)
             if len(lists)==0:
                 print("There are no clients... We are broke")
             else:
@@ -488,7 +488,89 @@ class Menu:
                 except ValueError:
                     print("-"*30+"\n"+"Enter a valid option!"+"\n"+"-"*30)
                     self._press()
+        
+        def printStatisticsMenu(self):
+            '''
+            Shows the menu for statistics
+            '''
+            menuString="\n Statistics: \n"+"-"*30+"\n"
+            menuString+="1. Most rented movies \n"
+            menuString+="2. Most active clients \n"
+            menuString+="3. All rentals \n"
+            menuString+="4. Late rentals\n"
+            menuString+="0. Go back to main menu \n"+"-"*30
+            print(menuString)
             
+            
+        def statisticsMenu(self):
+            '''
+            The menu for statistics
+            '''
+            statisticsOptions={1:self._mostRentedMovies,2:self._mostActiveClients,
+                               3:self._allRentals,4:self._lateRentals}
+            while True:
+                self.printStatisticsMenu()
+                try:
+                    opStat=int(input("Enter your option: "))
+                    if opStat in statisticsOptions:
+                        statisticsOptions[opStat]()
+                    elif opStat==0:
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("-"*30+"\n"+"Enter a valid option!"+"\n"+"-"*30)
+                    self._press()
+        
+        def _allRentals(self):
+            '''
+            UI for all rentals list
+            '''
+            print(self._rentalController.all_rentals())
+            self._press()
+            
+        def _mostRentedMovies(self):
+            '''
+            UI for most rented movies
+            '''
+            options={1:self._rentalController.most_rented,2:self._rentalController.most_rented}
+            self.printMostRentedMenu()
+            try:
+                option=int(input("Please enter an option: "))
+                if option in options:
+                    print(options[option](option))
+                    self._press()
+                else:
+                    raise ValueError
+            except ValueError:
+                print("-"*30+"\nOption is invalid!\n"+"-"*30)
+                self._press()
+            
+        def _mostActiveClients(self):
+            '''
+            UI for most active clients
+            '''
+            print(self._rentalController.active_clients())
+            self._press()
+        
+        def _lateRentals(self):
+            '''
+            UI for late rentals
+            '''
+            print(self._rentalController.late_rentals())
+            self._press()
+            
+        def printMostRentedMenu(self):
+            '''
+            Shows the mini-menu for most-rented movies
+            '''
+            menuString="\nSort the rented movies\n"+"-"*30+"\n"
+            menuString+="1. Sort by number of days\n"
+            menuString+="2. Sort by number of times\n"
+            menuString+="-"*30
+            print(menuString)
+            
+        
     #########################################################################
     
     def _printMenu(self):
@@ -500,6 +582,7 @@ class Menu:
         menuString+="2. Manage clients \n"
         menuString+="3. Rent movies \n"
         menuString+="4. Return a movie\n"
+        menuString+="5. Statistics\n"
         menuString+="0. Exit\n"+"-"*30
         print(menuString)
     
@@ -511,7 +594,7 @@ class Menu:
         
     def run(self):
         options={1:self._manageMovieMenu.manageMovies, 2:self._manageClientMenu.manageClients,
-                 3:self._manageRentalMenu.rentMovie, 4:self._manageRentalMenu.returnMovie }
+                 3:self._manageRentalMenu.rentMovie, 4:self._manageRentalMenu.returnMovie, 5:self._manageRentalMenu.statisticsMenu }
         while True:
             self._printMenu()
             try:
