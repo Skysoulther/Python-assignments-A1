@@ -13,8 +13,14 @@ class RepositoryException(Exception):
         '''
         self.__message=message
     
+    def _getMessage(self):
+        '''
+        Returns the message of Exception
+        '''
+        return self.__message
+    
     def __str__(self):
         '''
         Returns a message as a string
         '''
-        return self.__message
+        return self._getMessage()

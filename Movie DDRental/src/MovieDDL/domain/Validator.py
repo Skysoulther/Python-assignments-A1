@@ -3,6 +3,7 @@ Created on 5 Nov 2016
 
 @author: DDL
 '''
+from MovieDDL.domain.ValidatorExceptions import StoreException
 
 class MovieValidator():
     '''
@@ -178,22 +179,6 @@ class RentalValidator():
             raise StoreException(self._errors)
 
 #############################################################
-
-class StoreException(Exception):
-    '''
-    Class for store exceptions
-    '''
-    def __init__(self,message):
-        '''
-        Creates an exception with a certain message
-        '''
-        self.__message=message
-        
-    def __str__(self):
-        '''
-        Returns exception as string
-        '''
-        return self.__message
 
 #################################################################
 
