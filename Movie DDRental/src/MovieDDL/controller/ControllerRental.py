@@ -44,6 +44,7 @@ class rentalController:
             Id=int(Id)
         except ValueError:
             raise ControllerException("The ID should be a number!\n")
+        return True
     
     def get_allRentals(self):
         '''
@@ -63,7 +64,7 @@ class rentalController:
         available=self._repositoryMovie.get_available()
         if not Id in available:
             raise ControllerException("The movie with the ID: "+str(Id)+" is not in the available list!\n")
-        return
+        return True
     
     def checks_client(self,Id):
         '''
@@ -77,7 +78,7 @@ class rentalController:
         available=self._repositoryClient.get_all()
         if not Id in available:
             raise ControllerException("There is not client with the ID: "+str(Id)+"!\n")
-        return
+        return True
     
     def rent_movie(self,rental):
         '''
@@ -106,7 +107,7 @@ class rentalController:
             raise ControllerException("There is no movie with the ID: "+str(Id)+"!\n")
         if Id in available:
             raise ControllerException("The movie with the ID: "+str(Id)+" wasn't rented!\n")
-        return
+        return True
     
     
     def return_rental(self,clientId,movieId):
@@ -227,7 +228,6 @@ class rentalController:
         '''
         list1={}
         list2=[]
-        list3=[]
         allMovies=self._repositoryMovie.get_all()
         for key in allMovies:
             list1[key]=[0,0]

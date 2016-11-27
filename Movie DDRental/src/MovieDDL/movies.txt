@@ -1,0 +1,25 @@
+1;The Shawshank Redemption;Drama;Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.
+2;The Godfather;Drama;The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.
+3;The Godfather: Part II;Drama;The early life and career of Vito Corleone in 1920s New York is portrayed while his son, Michael, expands and tightens his grip on his crime syndicate stretching from Lake Tahoe, Nevada to pre-revolution 1958 Cuba.
+4;The Dark Knight;Action;When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, the caped crusader must come to terms with one of the greatest psychological tests of his ability to fight injustice.
+5;Schindler's List;Biography;In German-occupied Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazi Germans.
+6;The Lord of the Rings: The Return of the King;Adventure;Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.
+7;The Good, the Bad and the Ugly;Western;A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.
+8;Fight Club;Drama;An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more.
+9;The Lord of the Rings: The Fellowship of the Ring;Adventure;A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle Earth from the Dark Lord Sauron.
+10;Monty Python and the Holy Grail;Comedy;King Arthur and his knights embark on a low-budget search for the Grail, encountering many, very silly obstacles.
+11;Doctor Strange;Fantasy;A former neurosurgeon embarks on a journey of healing only to be drawn into the world of the mystic arts.
+12;Hacksaw Ridge;Biography;WWII American Army Medic Desmond T. Doss, who served during the Battle of Okinawa, refuses to kill people and becomes the first Conscientious Objector in American history to be awarded the Medal of Honor.
+13;Suicide Squad;Action;A secret government agency recruits some of the most dangerous incarcerated super-villains to form a defensive task force. Their first mission: save the world from the apocalypse.
+14;Doctor Strange;Fantasy;A former neurosurgeon embarks on a journey of healing only to be drawn into the world of the mystic arts.
+15;Mr. Nobody;Fantasy;A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.
+16;Forest Gump;Comedy;Forrest Gump, while not intelligent, has accidentally been present at many historic moments, but his true love, Jenny Curran, eludes him.
+17;Inception;Action;A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.
+18;The Lord of the Rings: The Two Towers;Adventure;While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard.
+19;One Flew Over the Cuckoo's Nest;Drama;A criminal pleads insanity after getting into trouble again and once in the mental institution rebels against the oppressive nurse and rallies up the scared patients.
+20;The Matrix;Sci-Fi;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.
+21;Seven Samurai;Action;A poor village under attack by bandits recruits seven unemployed samurai to help them defend themselves.
+22;Star Wars: Episode IV - A New Hope;Fantasy;Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a wookiee and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.
+23;Se7en;Crime;Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his modus operandi.
+24;The Silence of the Lambs;Drama;A young F.B.I. cadet must confide in an incarcerated and manipulative killer to receive his help on catching another serial killer who skins his victims.
+25;The Usual Suspects;Crime;A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which begin when five criminals meet at a seemingly random police lineup.

@@ -24,3 +24,10 @@ class RepositoryException(Exception):
         Returns a message as a string
         '''
         return self._getMessage()
+
+class FileRepositoryException(RepositoryException):
+    '''
+    Class for FileRepository Exceptions
+    '''
+    def __init__(self,message):
+        RepositoryException.__init__(self,"Error while accessing repository file "+message)

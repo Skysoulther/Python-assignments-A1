@@ -5,8 +5,9 @@ Created on 4 Nov 2016
 '''
 from MovieDDL.domain.Entities import Client
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
+from MovieDDL.repository.FileRepositoryClients import clientFileRepository
 
-class clientRepository:
+class clientRepository(clientFileRepository):
     '''
     repository for the clients
     '''
@@ -14,7 +15,8 @@ class clientRepository:
         '''
         Creates a repository for the clients
         '''
-        self.__clients=clients 
+        clientFileRepository.__init__(self,clients)
+        self.__clients=self._loadFromFile()
         self.__validator=validator
     
     def find_by_ID(self,Id):
@@ -41,6 +43,7 @@ class clientRepository:
         Id=int(client.get_clientID())
         if not self.find_by_ID(Id):
             self.__clients[Id]=client
+            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("A client with the same ID already in the list"+"\n")
         
@@ -54,6 +57,7 @@ class clientRepository:
         self.__validator.validateID(Id)
         if self.find_by_ID(Id):
             self.__clients.pop(Id)
+            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("There is no client with the ID: "+str(Id)+"\n")
     
@@ -75,6 +79,7 @@ class clientRepository:
         Updates the client with a new name
         '''
         self.__clients[Id].set_clientName(Name)
+        self._storeToFile(self.get_all())
     
     def get_all(self):
         '''
@@ -99,6 +104,8 @@ class clientRepository:
                 askedClients[client.get_clientID()]=client
                 
         return askedClients
+    
+    
     
     
 ##################################################################################

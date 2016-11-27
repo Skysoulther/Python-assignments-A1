@@ -39,7 +39,7 @@ class MovieValidator():
         
     def _validateGenre(self, genre):
         genre=genre.lower()
-        genres=["horror","comedy","drama","action","adventure","biography","western","fantasy"]
+        genres=["sci-fi","crime","horror","comedy","drama","action","adventure","biography","western","fantasy"]
         if not genre in genres:
             self._errors+="The genre is not recognized by the app\n"
         if len(genre)>15:

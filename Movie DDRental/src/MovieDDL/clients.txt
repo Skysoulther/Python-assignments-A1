@@ -1,0 +1,25 @@
+1;Martin King
+2;Big Boss
+3;Bruce Kenan
+4;Ion Crengoi
+5;Mr. Nobody
+6;Mark Manson
+7;Pepe Gusto
+8;George Georgescu
+9;Martin Martinescu
+10;R2D2
+11;Greg Lawrance
+12;Bruce Wayne
+13;Luther King
+14;Dorel Unirea
+15;Alina Jocuri
+16;Bruce Lee
+17;Kate Perisa
+18;Naomi Sirena
+19;Gigi Durul
+20;Cici Tofu
+21;Andrei Samuel
+22;Marius Cuma
+23;Alexandra Alexandra
+24;Ubuntu
+25;Steve Stevens

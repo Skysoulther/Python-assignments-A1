@@ -23,6 +23,7 @@ class clientController():
             Id=int(Id)
         except ValueError:
             raise ControllerException("The ID should be a number!\n")
+        return True
     
     def add_client(self,client):
         '''
@@ -78,4 +79,3 @@ class clientController():
         return self._repository.search_client(field,information)
 
 ################################################################################
-#################################################################################

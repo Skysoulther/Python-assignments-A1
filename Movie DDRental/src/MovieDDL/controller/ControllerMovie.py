@@ -23,6 +23,7 @@ class movieController:
             Id=int(Id)
         except ValueError:
             raise ControllerException("The ID should be a number!\n")
+        return True
         
     def add_movie(self,movie):
         '''

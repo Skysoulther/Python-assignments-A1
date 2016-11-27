@@ -5,8 +5,9 @@ Created on 4 Nov 2016
 '''
 from MovieDDL.domain.Entities import Movie
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
+from MovieDDL.repository.FileRepositoryMovies import movieFileRepository
 
-class movieRepository:
+class movieRepository(movieFileRepository):
     '''
     Repository for the movies
     '''
@@ -14,7 +15,8 @@ class movieRepository:
         '''
         Creates repository for the movies
         '''
-        self.__movies=movies
+        movieFileRepository.__init__(self,movies)
+        self.__movies=self._loadFromFile()
         self.__validator=validator
         
     def add_movie(self,movie):
@@ -29,6 +31,7 @@ class movieRepository:
         Id=movie.get_Id()
         if not self.find_by_ID(Id):
             self.__movies[Id]=movie
+            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("A movie with the same ID already in the list\n")
     
@@ -42,6 +45,7 @@ class movieRepository:
         self.__validator.validateID(Id)
         if self.find_by_ID(Id) and self.__movies[Id].get_availability():
             self.__movies.pop(Id)
+            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
     
@@ -63,6 +67,7 @@ class movieRepository:
         Updates the movie with a new description
         '''
         self.__movies[Id].set_description(Desc)
+        self._storeToFile(self.get_all())
             
     def get_all(self):
         '''

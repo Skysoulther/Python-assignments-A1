@@ -5,19 +5,31 @@ Created on 6 Nov 2016
 '''
 from MovieDDL.domain.Entities import Rental
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
+from MovieDDL.repository.FileRepositoryRentals import rentalFileRepository
 import datetime
 
-class rentalRepository:
+class rentalRepository(rentalFileRepository):
     '''
     repository for the rented movies
     '''
-    def __init__(self,Validator,rentals):
+    def __init__(self,Validator,rentals,repoMovie):
         '''
         Creates the repository of rented movies
         '''
-        self.__rentals=rentals
+        rentalFileRepository.__init__(self,rentals)
+        self.__rentals=self._loadFromFile()
         self.__validator=Validator
-        
+        self.__movieRepo=repoMovie
+        self.__setAvailability()
+    
+    def __setAvailability(self):
+        '''
+        set the availability of the created movies
+        '''
+        for key in self.__rentals:
+            movieId=self.__rentals[key].get_rmovieId()
+            self.__movieRepo.change_availability(movieId,False)
+    
     def find_by_ID(self,Id):
         '''
         Checks if the Id is in the list of rentals
@@ -49,6 +61,7 @@ class rentalRepository:
         Id=int(rental.get_rentalId())
         if not self.find_by_ID(Id):
             self.__rentals[Id]=rental
+            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("A rental with the same ID already in the list"+"\n")
     
