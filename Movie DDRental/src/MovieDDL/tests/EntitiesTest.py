@@ -6,6 +6,7 @@ Created on 21 Nov 2016
 import unittest
 from MovieDDL.domain.Entities import *
 
+
 class EntitiesTest(unittest.TestCase):
     '''
     Unit TestCase for testing entities

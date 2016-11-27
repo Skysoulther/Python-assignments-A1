@@ -459,10 +459,10 @@ class Menu:
             shows the menu for renting
             '''
             menuString="\n Choose the period of time: \n"+"-"*30+"\n"
-            menuString+="1. 1 week \n"
-            menuString+="2. 2 weeks \n"
-            menuString+="3. 1 month (30 days) \n"
-            menuString+="4. 2 months (60 days)\n"
+            menuString+="1. 3 days \n"
+            menuString+="2. 5 days \n"
+            menuString+="3. 1 week (7 days) \n"
+            menuString+="4. 2 weeks (14 days)\n"
             menuString+="0. Go back to main menu \n"+"-"*30
             print(menuString)
                    
@@ -470,7 +470,7 @@ class Menu:
             '''
             The menu for renting a movie
             '''
-            options={1:7,2:14,3:30,4:60}
+            options={1:3,2:5,3:7,4:14}
             while True:
                 self.printRentMenu()
                 try:
@@ -526,7 +526,8 @@ class Menu:
             '''
             UI for all rentals list
             '''
-            print(self._rentalController.all_rentals())
+            rentals=self._rentalController.all_rentals()
+            print(self._createList(rentals,1))
             self._press()
             
         def _mostRentedMovies(self):
@@ -538,7 +539,8 @@ class Menu:
             try:
                 option=int(input("Please enter an option: "))
                 if option in options:
-                    print(options[option](option))
+                    mostRented=options[option](option)
+                    print(self._createList(mostRented,1))
                     self._press()
                 else:
                     raise ValueError
@@ -550,14 +552,16 @@ class Menu:
             '''
             UI for most active clients
             '''
-            print(self._rentalController.active_clients())
+            mostActive=self._rentalController.active_clients()
+            print(self._createList(mostActive,2))
             self._press()
         
         def _lateRentals(self):
             '''
             UI for late rentals
             '''
-            print(self._rentalController.late_rentals())
+            lateRentals=self._rentalController.late_rentals()
+            print(self._createList(lateRentals,1))
             self._press()
             
         def printMostRentedMenu(self):
@@ -569,7 +573,28 @@ class Menu:
             menuString+="2. Sort by number of times\n"
             menuString+="-"*30
             print(menuString)
-            
+        
+        def _createList(self, lista,typeL):
+            '''
+            Turns a list into a string
+            Input: lista - a list of objects
+            Output: stringList -  the list as a string
+            Exceptions: -
+            '''
+            if typeL==1:
+                stringList="\nID    TITLE"+" "*47+"GENRE"+" "*10+"\n"+"-"*85
+            elif typeL==2:
+                stringList="\nID    NAME"+" "*21+"\n"+"-"*50
+            if(len(lista)==0):
+                stringList+="\n The list is empty!"
+            else:
+                for i in range(len(lista)):
+                        stringList+="\n"+str(lista[i])
+            if typeL==1:
+                stringList+="\n"+"-"*85
+            elif typeL==2:
+                stringList+="\n"+"-"*50
+            return stringList    
         
     #########################################################################
     

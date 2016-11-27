@@ -121,30 +121,6 @@ class rentalController:
         rental=self._repositoryRental.return_rental(clientId,movieId)
         self._repositoryMovie.change_availability(rental.get_rmovieId(),True)
     
-    def _createList(self, lista,typeL,addString="",lista2=[]):
-        '''
-        Turns a list into a string
-        Input: lista - a list of objects
-        Output: stringList -  the list as a string
-        Exceptions: -
-        '''
-        if typeL==1:
-            stringList="\nID    TITLE"+" "*47+"GENRE"+" "*10+addString+"\n"+"-"*85
-        elif typeL==2:
-            stringList="\nID    NAME"+" "*21+addString+"\n"+"-"*50
-        if(len(lista)==0):
-            stringList+="\n The list is empty!"
-        else:
-            for i in range(len(lista)):
-                if len(lista2)>0:
-                    stringList+="\n"+str(lista[i])+str(lista2[i])
-                else:
-                    stringList+="\n"+str(lista[i])
-        if typeL==1:
-            stringList+="\n"+"-"*85
-        elif typeL==2:
-            stringList+="\n"+"-"*50
-        return stringList
         
     def all_rentals(self):
         '''
@@ -158,9 +134,7 @@ class rentalController:
         for key in allMovies:
             if not allMovies[key].get_availability():
                 rentedMovies.append(allMovies[key])
-        askedString=self._createList(rentedMovies,1)
-        askedString="\nThe list of all rented movies is:"+askedString
-        return askedString
+        return rentedMovies
     
     def _calculate_lateDays(self,dueDate,returnDate):
         '''
@@ -203,7 +177,6 @@ class rentalController:
         '''
         list1=[]
         list2=[]
-        list3=[]
         allMovies=self._repositoryMovie.get_all()
         rentals=self._repositoryRental.get_all()
         for key in rentals:
@@ -216,10 +189,7 @@ class rentalController:
         list1=sorted(list1,key=itemgetter(1),reverse=True)
         for element in list1:
             list2.append(allMovies[element[0]])
-            list3.append(element[1])
-        askedString=self._createList(list2, 1,"Days",list3)
-        askedString="\nThe list of late rentals in descending order is:"+askedString
-        return askedString
+        return list2
         
     def active_clients(self):
         '''
@@ -230,7 +200,6 @@ class rentalController:
         '''
         list1={}
         list2=[]
-        list3=[]
         allClients=self._repositoryClient.get_all()
         for key in allClients:
             list1[key]=0
@@ -247,10 +216,7 @@ class rentalController:
         list2=sorted(list2,key=itemgetter(1),reverse=True)
         for element in list2:
             list1.append(allClients[element[0]])
-            list3.append(element[1])
-        askedString=self._createList(list1, 2,"Rental Days",list3)
-        askedString="\nThe list of active clients in descending order is:"+askedString
-        return askedString
+        return list1
     
     def most_rented(self,option):
         '''
@@ -278,18 +244,11 @@ class rentalController:
         list1=[]
         if option==1:
             list2=sorted(list2,key=itemgetter(1),reverse=True)
-            for element in list2:
-                list1.append(allMovies[element[0]])
-                list3.append(element[1])
-            askedString=self._createList(list1, 1,"Days",list3)
-        elif option==2:
+        else:
             list2=sorted(list2,key=itemgetter(2),reverse=True)
-            for element in list2:
-                list1.append(allMovies[element[0]])
-                list3.append(element[2])
-            askedString=self._createList(list1, 1,"Times",list3)
-        askedString="\nThe list of most rented movies in descending order is:"+askedString
-        return askedString
+        for element in list2:
+            list1.append(allMovies[element[0]])
+        return list1
                     
 ####################################################################################
 #################################################################################

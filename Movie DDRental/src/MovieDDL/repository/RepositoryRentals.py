@@ -66,14 +66,3 @@ class rentalRepository:
         raise RepositoryException("This client didn't rent this movie!\n")
         
 #####################################################################################
-###############################################################################
-
-def testRepositoryRentals():
-    '''
-    Test this repository
-    '''
-    from MovieDDL.domain.Validator import RentalValidator
-    repoList={1:Rental(1,13,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=13,month=11,year=2016)),
-              2:Rental(2,14,5,datetime.date(day=12,month=11,year=2016),datetime.date(day=26,month=11,year=2016)),
-              3:Rental(3,12,1,datetime.date(day=1,month=11,year=2016),datetime.date(day=8,month=11,year=2016))}
-    
