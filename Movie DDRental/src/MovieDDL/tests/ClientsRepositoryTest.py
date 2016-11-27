@@ -17,13 +17,10 @@ class ClientsRepositoryTest(unittest.TestCase):
         '''
         the setup of data
         '''
-        repoList={1:Client(1,"Client 1"),
-              2:Client(2,"Client 2"),
-              3:Client(3,"Client 3")}
         self.clientList1=[17,"Client 17"]
         self.clientList2=[2,"Client 56"]
         validator1=ClientValidator()
-        self.repoTest=clientRepository(validator1,repoList)
+        self.repoTest=clientRepository(validator1,"testClients.txt")
         
     def testRepositoryClients(self):
         '''
@@ -32,12 +29,12 @@ class ClientsRepositoryTest(unittest.TestCase):
         self.repoTest.add_client(self.clientList1)
         self.assertRaises(RepositoryException,self.repoTest.add_client,self.clientList1)
         self.assertRaises(RepositoryException,self.repoTest.add_client,self.clientList2)
-        self.assertRaises(RepositoryException,self.repoTest.remove_client,4)
-        self.repoTest.remove_client(3)
-        self.assertRaises(RepositoryException,self.repoTest.return_client_Id,3)
-        self.assertEqual(self.repoTest.return_client_Id(17).get_clientName(),"Client 17")
+        self.assertRaises(RepositoryException,self.repoTest.remove_client,6)
+        self.repoTest.remove_client(17)
+        self.assertRaises(RepositoryException,self.repoTest.return_client_Id,17)
+        self.assertEqual(self.repoTest.return_client_Id(5).get_clientName(),"Client 5")
         self.assertTrue(self.repoTest.find_by_ID,2)
-        self.assertFalse(self.repoTest.find_by_ID(3))
-        self.assertEqual(self.repoTest.search_client(1, "5"),{})
-        self.assertEqual(len(self.repoTest.search_client(2, "Cli")),3)
+        self.assertFalse(self.repoTest.find_by_ID(17))
+        self.assertEqual(self.repoTest.search_client(1, "6"),{})
+        self.assertEqual(len(self.repoTest.search_client(2, "Cli")),5)
         

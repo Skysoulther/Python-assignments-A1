@@ -89,7 +89,7 @@ class Menu:
                 self._movieController.add_movie(movie)
                 print("-"*30+"\nMovie was added!\n"+"-"*30)
                 self._press()
-            except ValueError as ex:
+            except Exception as ex:
                 print("-"*30+"\n"+str(ex)+"-"*30)
                 self._press()
                 

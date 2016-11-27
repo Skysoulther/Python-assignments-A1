@@ -19,11 +19,8 @@ class ClientsControllerTest(unittest.TestCase):
         '''
         the setup of data
         '''
-        repoList={1:Client(1,"Client 1"),
-              2:Client(2,"Client 2"),
-              3:Client(3,"Client 3"),4:Client(4,"Client 4"),5:Client(5,"Client 5")}
         validator1=ClientValidator()
-        repoTest=clientRepository(validator1,repoList)
+        repoTest=clientRepository(validator1,"testClients.txt")
         self.controlTest=clientController(repoTest)
     
     def testControllerClients(self):
@@ -43,5 +40,6 @@ class ClientsControllerTest(unittest.TestCase):
         self.controlTest.edit_client(5, "The Client")
         self.assertEqual(self.controlTest.get_allClients()[5].get_clientName(),"The Client")
         self.assertEqual(self.controlTest.return_client_Id(5),self.controlTest.get_allClients()[5])
-        self.assertEqual(len(self.controlTest.search_client(2, "the")),1) 
+        self.assertEqual(len(self.controlTest.search_client(2, "the")),1)
+        self.controlTest.edit_client(5, "Client 5")
         

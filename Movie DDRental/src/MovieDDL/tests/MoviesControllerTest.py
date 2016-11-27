@@ -19,13 +19,8 @@ class MoviesControllerTest(unittest.TestCase):
         '''
         the setup of data
         '''
-        repoList={1:Movie(1,"Test1","Description1","comedy"),
-              2:Movie(2,"Test2","Description2","horror"),
-              3:Movie(3,"Test3","Description3","action"),
-              4:Movie(4,"Test4","Description4","action"),
-              5:Movie(5,"Test5","Description5","adventure")}
         validator1=MovieValidator()
-        repoTest=movieRepository(validator1,repoList)
+        repoTest=movieRepository(validator1,"testMovies.txt")
         self.controlTest=movieController(repoTest)
 
     def testControllerMovies(self):
@@ -47,4 +42,5 @@ class MoviesControllerTest(unittest.TestCase):
         self.assertEqual(self.controlTest.return_movie_Id(5),self.controlTest.get_allMovies()[5])
         self.assertEqual(len(self.controlTest.search_movie(4, "the")),1)
         self.assertEqual(len(self.controlTest.search_movie(3, "act")),2)
-        self.assertEqual(len(self.controlTest.search_movie(2, "test")),5) 
+        self.assertEqual(len(self.controlTest.search_movie(2, "test")),5)
+        self.controlTest.edit_movie(5, "Description5")
