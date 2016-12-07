@@ -10,11 +10,8 @@ class Menu:
         '''
         Creates a menu which uses controllers
         '''
-        #self._movieController=movControl
-        #self._clientController=cliControl
-        #self._rentalController=renControl
         self._manageMovieMenu=self.ManageMovie(movControl)
-        self._manageClientMenu=self.ManageClient(cliControl)
+        self._manageClientMenu=self.ManageClient(cliControl,renControl)
         self._manageRentalMenu=self.ManageRental(renControl)
     
     class ManageMovie:
@@ -241,11 +238,12 @@ class Menu:
         '''
         Class for managing client menu
         '''
-        def __init__(self,cliControl):
+        def __init__(self,cliControl,renControl):
             '''
             Creates menu for managinh the clients
             '''
             self._clientController=cliControl
+            self._rentalController=renControl
             
         def _readClient(self):
             '''
@@ -283,8 +281,9 @@ class Menu:
             UI to remove a client from the repository
             '''
             try:
-                removeId=input("Enter the id of the client you wnat to remove: ")
-                self._clientController.remove_client(removeId)
+                removeId=input("Enter the id of the client you want to remove: ")
+                client=self._clientController.remove_client(removeId)
+                self._rentalController.remove_rentals(client)
                 print("-"*30+"\nClient was removed!\n"+"-"*30)
                 self._press()
             except Exception as ex:
@@ -527,6 +526,7 @@ class Menu:
             UI for all rentals list
             '''
             rentals=self._rentalController.all_rentals()
+            print("The list of all rentals is:")
             print(self._createList(rentals,1))
             self._press()
             
@@ -540,6 +540,7 @@ class Menu:
                 option=int(input("Please enter an option: "))
                 if option in options:
                     mostRented=options[option](option)
+                    print("The list of most rented movies is:")
                     print(self._createList(mostRented,1))
                     self._press()
                 else:
@@ -553,6 +554,7 @@ class Menu:
             UI for most active clients
             '''
             mostActive=self._rentalController.active_clients()
+            print("The list of most active students is:")
             print(self._createList(mostActive,2))
             self._press()
         
@@ -561,6 +563,7 @@ class Menu:
             UI for late rentals
             '''
             lateRentals=self._rentalController.late_rentals()
+            print("The list of late rentals in descending order is:")
             print(self._createList(lateRentals,1))
             self._press()
             
@@ -582,9 +585,9 @@ class Menu:
             Exceptions: -
             '''
             if typeL==1:
-                stringList="\nID    TITLE"+" "*47+"GENRE"+" "*10+"\n"+"-"*85
+                stringList="\nID    TITLE"+" "*47+"GENRE"+" "*10+"Sort"+"\n"+"-"*85
             elif typeL==2:
-                stringList="\nID    NAME"+" "*21+"\n"+"-"*50
+                stringList="\nID    NAME"+" "*21+"Sort"+"\n"+"-"*50
             if(len(lista)==0):
                 stringList+="\n The list is empty!"
             else:
@@ -594,7 +597,31 @@ class Menu:
                 stringList+="\n"+"-"*85
             elif typeL==2:
                 stringList+="\n"+"-"*50
-            return stringList    
+            return stringList 
+        
+        def undo(self):
+            '''
+            UI for undo
+            '''
+            try:
+                self._rentalController.undo()
+                print("-"*30+"\nUndo completed!!\n"+"-"*30)
+                self._press()
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
+                self._press()
+        
+        def redo(self):
+            '''
+            UI for undo
+            '''
+            try:
+                self._rentalController.redo()
+                print("-"*30+"\nRedo completed!!\n"+"-"*30)
+                self._press()
+            except Exception as ex:
+                print("-"*30+"\n"+str(ex)+"-"*30)
+                self._press()    
         
     #########################################################################
     
@@ -608,6 +635,8 @@ class Menu:
         menuString+="3. Rent movies \n"
         menuString+="4. Return a movie\n"
         menuString+="5. Statistics\n"
+        menuString+="6. Undo\n"
+        menuString+="7. Redo\n"
         menuString+="0. Exit\n"+"-"*30
         print(menuString)
     
@@ -619,7 +648,8 @@ class Menu:
         
     def run(self):
         options={1:self._manageMovieMenu.manageMovies, 2:self._manageClientMenu.manageClients,
-                 3:self._manageRentalMenu.rentMovie, 4:self._manageRentalMenu.returnMovie, 5:self._manageRentalMenu.statisticsMenu }
+                 3:self._manageRentalMenu.rentMovie, 4:self._manageRentalMenu.returnMovie, 5:self._manageRentalMenu.statisticsMenu,
+                 6:self._manageRentalMenu.undo, 7:self._manageRentalMenu.redo }
         while True:
             self._printMenu()
             try:

@@ -6,8 +6,7 @@ Created on 26 Nov 2016
 import unittest
 from MovieDDL.domain.Entities import Movie
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
-from MovieDDL.domain.Validator import MovieValidator
-from MovieDDL.repository.RepositoryMovies import movieRepository
+from MovieDDL.repository.FileRepositoryMovies import movieFileRepository
 
 class MoviesRepositoryTest(unittest.TestCase):
     '''
@@ -18,10 +17,9 @@ class MoviesRepositoryTest(unittest.TestCase):
         '''
         the setup of data
         '''
-        self.movieList1=[17,"Test17","western","Description17"]
-        self.movieList2=[2,"Test56","horror","Description56"]
-        validator1=MovieValidator()
-        self.repoTest=movieRepository(validator1,"testMovies.txt")
+        self.movieList1=Movie(17,"Test17","Description17","western")
+        self.movieList2=Movie(2,"Test56","Description56","horror")
+        self.repoTest=movieFileRepository("testMovies.txt")
 
     def testRepositoryMovies(self):
         '''

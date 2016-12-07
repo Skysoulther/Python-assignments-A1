@@ -3,21 +3,17 @@ Created on 4 Nov 2016
 
 @author: DDL
 '''
-from MovieDDL.domain.Entities import Movie
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
-from MovieDDL.repository.FileRepositoryMovies import movieFileRepository
 
-class movieRepository(movieFileRepository):
+class movieRepository():
     '''
     Repository for the movies
     '''
-    def __init__(self,validator,movies):
+    def __init__(self):
         '''
         Creates repository for the movies
         '''
-        movieFileRepository.__init__(self,movies)
-        self.__movies=self._loadFromFile()
-        self.__validator=validator
+        self.__movies={}
         
     def add_movie(self,movie):
         '''
@@ -26,12 +22,9 @@ class movieRepository(movieFileRepository):
         Output: -
         Exceptions: RepositoryException from validator or if the ID is already used
         '''
-        movie=Movie(movie[0],movie[1],movie[3],movie[2])
-        self.__validator.validateMovie(movie)
         Id=movie.get_Id()
         if not self.find_by_ID(Id):
             self.__movies[Id]=movie
-            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("A movie with the same ID already in the list\n")
     
@@ -42,10 +35,8 @@ class movieRepository(movieFileRepository):
         Output: -
         Exceptions: RepositoryException from validator or if the ID is not in the list
         '''
-        self.__validator.validateID(Id)
         if self.find_by_ID(Id) and self.__movies[Id].get_availability():
-            self.__movies.pop(Id)
-            self._storeToFile(self.get_all())
+            return self.__movies.pop(Id)
         else:
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
     
@@ -56,7 +47,6 @@ class movieRepository(movieFileRepository):
         Output: self._movies[Id] - a movie having the ID Id
         Exceptions: RepositoryException if there is no movie with that Id
         '''
-        self.__validator.validateID(Id)
         if not self.find_by_ID(Id):
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
         else:
@@ -67,7 +57,6 @@ class movieRepository(movieFileRepository):
         Updates the movie with a new description
         '''
         self.__movies[Id].set_description(Desc)
-        self._storeToFile(self.get_all())
             
     def get_all(self):
         '''

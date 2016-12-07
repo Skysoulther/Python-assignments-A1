@@ -4,10 +4,9 @@ Created on 27 Nov 2016
 @author: DDL
 '''
 import unittest
-from MovieDDL.domain.Entities import Movie
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
 from MovieDDL.domain.Validator import MovieValidator
-from MovieDDL.repository.RepositoryMovies import movieRepository
+from MovieDDL.repository.FileRepositoryMovies import movieFileRepository
 from MovieDDL.controller.ControllerExceptions import ControllerException
 from MovieDDL.controller.ControllerMovie import movieController
 
@@ -20,8 +19,8 @@ class MoviesControllerTest(unittest.TestCase):
         the setup of data
         '''
         validator1=MovieValidator()
-        repoTest=movieRepository(validator1,"testMovies.txt")
-        self.controlTest=movieController(repoTest)
+        repoTest=movieFileRepository("testMovies.txt")
+        self.controlTest=movieController(repoTest,validator1)
 
     def testControllerMovies(self):
         '''

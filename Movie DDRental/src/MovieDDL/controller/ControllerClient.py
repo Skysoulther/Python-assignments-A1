@@ -4,15 +4,19 @@ Created on 4 Nov 2016
 @author: DDL
 '''
 from MovieDDL.controller.ControllerExceptions import ControllerException
+from MovieDDL.controller.UndoController import Operation
+from MovieDDL.domain.Entities import Client
 class clientController():
     '''
     Contains functions which operates on clients
     '''
-    def __init__(self, repoClient):
+    def __init__(self, repoClient,validator,undo):
         '''
         Creates a controller for clients
         '''
+        self._undoControl=undo
         self._repository=repoClient
+        self.__validator=validator
     
     def _validateID(self,Id):
         '''
@@ -33,8 +37,11 @@ class clientController():
         Exceptions: -
         '''
         self._validateID(client[0])
-        client[0]=int(client[0])
+        client=Client(int(client[0]),client[1])
+        self.__validator.validateClient(client)
         self._repository.add_client(client)
+        self._undoControl.store_undo([Operation("remove_client",[client.get_clientID()])])
+        self._undoControl.store_redo([Operation("add_client",[client])])
     
     def remove_client(self, Id):
         '''
@@ -45,7 +52,9 @@ class clientController():
         '''
         self._validateID(Id)
         Id=int(Id)
-        self._repository.remove_client(Id)
+        self.__validator.validateID(Id)
+        client=self._repository.remove_client(Id)
+        return client
     
     def get_allClients(self):
         '''
@@ -60,7 +69,10 @@ class clientController():
         self._validateID(Id)
         Id=int(Id)
         if self._repository.find_by_ID(Id):
+            client=self._repository.return_client_Id(Id)
+            self._undoControl.store_undo([Operation("edit_client",[Id,client.get_clientName()])])
             self._repository.update_client(Id,Name)
+            self._undoControl.store_redo([Operation("edit_client",[Id,Name])])
         else:
             raise ControllerException("The client you want to edit can't be found!\n")
     
@@ -70,6 +82,7 @@ class clientController():
         '''
         self._validateID(Id)
         Id=int(Id)
+        self.__validator.validateID(Id)
         return self._repository.return_client_Id(Id)
     
     def search_client(self, field, information):

@@ -3,21 +3,17 @@ Created on 4 Nov 2016
 
 @author: DDL
 '''
-from MovieDDL.domain.Entities import Client
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
-from MovieDDL.repository.FileRepositoryClients import clientFileRepository
 
-class clientRepository(clientFileRepository):
+class clientRepository():
     '''
     repository for the clients
     '''
-    def __init__(self,validator,clients):
+    def __init__(self):
         '''
         Creates a repository for the clients
         '''
-        clientFileRepository.__init__(self,clients)
-        self.__clients=self._loadFromFile()
-        self.__validator=validator
+        self.__clients={}
     
     def find_by_ID(self,Id):
         '''
@@ -38,12 +34,9 @@ class clientRepository(clientFileRepository):
         Output: -
         Exceptions: RepositoryException if there is a client with the same ID
         '''
-        client=Client(client[0],client[1])
-        self.__validator.validateClient(client)
         Id=int(client.get_clientID())
         if not self.find_by_ID(Id):
             self.__clients[Id]=client
-            self._storeToFile(self.get_all())
         else:
             raise RepositoryException("A client with the same ID already in the list"+"\n")
         
@@ -54,10 +47,8 @@ class clientRepository(clientFileRepository):
         Output: -
         Exceptions: RepositoryException id theere is no client with the ID 
         '''
-        self.__validator.validateID(Id)
         if self.find_by_ID(Id):
-            self.__clients.pop(Id)
-            self._storeToFile(self.get_all())
+            return self.__clients.pop(Id)
         else:
             raise RepositoryException("There is no client with the ID: "+str(Id)+"\n")
     
@@ -68,7 +59,6 @@ class clientRepository(clientFileRepository):
         Output: self._clients[Id] - a client having the ID Id
         Exceptions: RepositoryException if there is no client with that Id
         '''
-        self.__validator.validateID(Id)
         if not self.find_by_ID(Id):
             raise RepositoryException("There is no movie with the ID: "+str(Id)+"\n")
         else:
@@ -79,7 +69,6 @@ class clientRepository(clientFileRepository):
         Updates the client with a new name
         '''
         self.__clients[Id].set_clientName(Name)
-        self._storeToFile(self.get_all())
     
     def get_all(self):
         '''

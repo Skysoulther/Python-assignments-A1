@@ -23,3 +23,88 @@
 23;Se7en;Crime;Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his modus operandi.
 24;The Silence of the Lambs;Drama;A young F.B.I. cadet must confide in an incarcerated and manipulative killer to receive his help on catching another serial killer who skins his victims.
 25;The Usual Suspects;Crime;A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which begin when five criminals meet at a seemingly random police lineup.
+26;Interstellar;Sci-Fi;A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.
+27;Casablanca;Drama;In Casablanca, Morocco in December 1941, a cynical American expatriate meets a former lover, with unforeseen complications.
+28;Psycho;Horror;A Phoenix secretary embezzles $40,000 from her employer's client, goes on the run, and checks into a remote motel run by a young man under the domination of his mother.
+29;City Lights;Comedy;With the aid of a wealthy erratic tippler, a dewy-eyed tramp who has fallen in love with a sightless flower girl accumulates money to be able to help her medically.
+30;The Green Mile;Crime;The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder and rape, yet who has a mysterious gift.
+31;The Intouchables;Biography;After he becomes a quadriplegic from a paragliding accident, an aristocrat hires a young man from the projects to be his caregiver.
+32;Modern Times;Comedy;The Tramp struggles to live in modern industrial society with the help of a young homeless woman.
+33;Rear Window;Mystery;A wheelchair-bound photographer spies on his neighbours from his apartment window and becomes convinced one of them has committed murder.
+34;Terminator 2: Judgment Day;Action;A cyborg, identical to the one who failed to kill Sarah Connor, must now protect her young son, John Connor, from a more advanced cyborg, made out of liquid metal.
+35;The Pianist;Biography;A Polish Jewish musician struggles to survive the destruction of the Warsaw ghetto of World War II.
+36;The Departed;Crime;An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.
+37;Back to the Future;Adventure;Marty McFly, a 17-year-old high school student, is accidentally sent 30 years into the past in a time-traveling DeLorean invented by his close friend, the maverick scientist Doc Brown.
+38;Whiplash;Drama;A promising young drummer enrolls at a cut-throat music conservatory where his dreams of greatness are mentored by an instructor who will stop at nothing to realize a student's potential.
+39;Gladiator;Action;When a Roman general is betrayed and his family murdered by an emperor's corrupt son, he comes to Rome as a gladiator to seek revenge.
+40;Memento;Mystery;A man juggles searching for his wife's murderer and keeping his short-term memory loss from being an obstacle.
+41;Apocalypse Now;Drama;During the Vietnam War, Captain Willard is sent on a dangerous mission into Cambodia to assassinate a renegade colonel who has set himself up as a god among a local tribe.
+42;The Prestige;Mystery;Two stage magicians engage in competitive one-upmanship in an attempt to create the ultimate stage illusion.
+43;The Lion King;Animation;Lion cub and future king Simba searches for his identity. His eagerness to please others and penchant for testing his boundaries sometimes gets him into trouble.
+44;Alien;Sci-Fi;After a space merchant vessel perceives an unknown transmission as distress call, their landing on the source moon finds one of the crew attacked by a mysterious lifeform. Continuing their journey back to Earth with the attacked crew having recovered and the critter deceased, they soon realize that its life cycle has merely begun.
+45;Sunset Boulevard;Drama;A hack screenwriter writes a screenplay for a former silent-film star who has faded into Hollywood obscurity.
+46;The Great Dictator;Comedy;Dictator Adenoid Hynkel tries to expand his empire while a poor Jewish barber tries to avoid persecution from Hynkel's regime.
+47;The Lives of Others;Drama;In 1984 East Berlin, an agent of the secret police, conducting surveillance on a writer and his lover, finds himself becoming increasingly absorbed by their lives.
+48;Cinema Paradiso;Drama;A filmmaker recalls his childhood, when he fell in love with the movies at his village's theater and formed a deep friendship with the theater's projectionist.
+49;Paths of Glory;Drama;After refusing to attack an enemy position, a general accuses the soldiers of cowardice and their commanding officer must defend them.
+50;Django Unchained;Western;With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.
+51;The Shining;Horror;A family heads to an isolated hotel for the winter where an evil and spiritual presence influences the father into violence, while his psychic son sees horrific forebodings from the past and of the future.
+52;Grave of the Fireflies;Animation;A young boy and his little sister struggle to survive in Japan during World War II.
+53;WALL·E;Animation;In the distant future, a small waste-collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.
+54;The Dark Knight Rises;Action;Eight years after the Joker's reign of anarchy, the Dark Knight, with the help of the enigmatic Selina, is forced from his imposed exile to save Gotham City, now on the edge of total annihilation, from the brutal guerrilla terrorist Bane.
+55;American Beauty;Romance;A sexually frustrated suburban father has a mid-life crisis after becoming infatuated with his daughter's best friend.
+56;Princess Mononoke;Animation;On a journey to find the cure for a Tatarigami's curse, Ashitaka finds himself in the middle of a war between the forest gods and Tatara, a mining colony. In this quest he also meets San, the Mononoke Hime.
+57;Aliens;Sci-Fi;The moon from Alien (1979) has been colonized, but contact is lost. This time, the rescue team has impressive firepower, but will it be enough?
+58;Oldboy;Mystery;After being kidnapped and imprisoned for fifteen years, Oh Dae-Su is released, only to find that he must find his captor in five days.
+59;Das Boot;Adventure;The claustrophobic world of a WWII German U-boat
+60;Witness for the Prosecution;Crime;A veteran British barrister must defend his client in a murder trial that has surprise after surprise.
+61;North by Northwest;Action;A hapless New York advertising executive is mistaken for a government agent by a group of foreign spies, and is pursued across the country while he looks for a way to survive.
+62;Vertigo;Mystery;A San Francisco detective suffering from acrophobia investigates the strange activities of an old friend's wife, all the while becoming dangerously obsessed with her.
+63;Star Wars: Episode VI - Return of the Jedi;Fantasy;After rescuing Han Solo from the palace of Jabba the Hutt, the rebels attempt to destroy the second Death Star, while Luke struggles to make Vader return from the dark side of the Force.
+64;M;Drama;When the police in a German city are unable to catch a child-murderer, other criminals join in the manhunt.
+65;Reservoir Dogs;Crime;After a simple jewelry heist goes terribly wrong, the surviving criminals begin to suspect that one of them is a police informant.
+66;Braveheart;Biography;When his secret bride is executed for assaulting an English soldier who tried to rape her, William Wallace begins a revolt against King Edward I of England.
+67;Amelie;Comedy;Amélie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.
+68;My Father and My Son;Drama;The family of a left-wing journalist is torn apart after a military coup in 1980's Turkey.
+69;Requiem for a Dream;Drama;The drug-induced utopias of four Coney Island people are shattered when their addictions run deep.
+70;A Clockwork Orange;Sci-Fi;In future Britain, Alex DeLarge, a charismatic and psycopath delinquent, who likes to practice crimes and ultra-violence with his gang, is jailed and volunteers for an experimental aversion therapy developed by the government in an effort to solve society's crime problem - but not all goes according to plan.
+71;Like Stars on Earth;Drama;An eight-year-old boy is thought to be lazy and a trouble-maker, until the new art teacher has the patience and compassion to discover the real problem behind his struggles in school.
+72;Taxi Driver;Crime;A mentally unstable Vietnam War veteran works as a night-time taxi driver in New York City where the perceived decadence and sleaze feeds his urge for violent action, attempting to save a preadolescent prostitute in the process.
+73;Lawrence of Arabia;Biography;The story of T.E. Lawrence, the English officer who successfully united and lead the diverse, often warring, Arab tribes during World War I in order to fight the Turks.
+74;Double Indemnity;Crime;An insurance representative lets himself be talked into a murder/insurance fraud scheme that arouses an insurance investigator's suspicions.
+75;To Kill a Mockingbird;Crime;Atticus Finch, a lawyer in the Depression-era South, defends a black man against an undeserved rape charge, and his children against prejudice.
+76;Toy Story 3;Animation;The toys are mistakenly delivered to a day-care center instead of the attic right before Andy leaves for college, and it's up to Woody to convince the other toys that they weren't abandoned and to return home.
+77;Eternal Sunshine of the Spotless Mind;Fantasy;When their relationship turns sour, a couple undergoes a procedure to have each other erased from their memories. But it is only through the process of loss that they discover what they had to begin with.
+78;Amadeus;Biography;The incredible story of Wolfgang Amadeus Mozart, told by his peer and secret rival Antonio Salieri - now confined to an insane asylum.
+79;Full Metal Jacket;War;A pragmatic U.S. Marine observes the dehumanizing effects the Vietnam War has on his fellow recruits from their brutal boot camp training to the bloody street fighting in Hue.
+80;The Sting;Drama;In Chicago in September 1936, a young con man seeking revenge for his murdered partner teams up with a master of the big con to win a fortune from a criminal banker.
+81;2001: A Space Odyssey;Sci-Fi;Humanity finds a mysterious, obviously artificial object buried beneath the Lunar surface and, with the intelligent computer H.A.L. 9000, sets off on a quest.
+82;Arrival;Mystery;A linguist is recruited by the military to assist in translating alien communications.
+83;Bicycle Thieves;Drama;In post-war Italy, a working-class man's bicycle is stolen. He and his son set out to find it.
+84;Toy Story;Animation;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.
+85;Snatch;Comedy;Unscrupulous boxing promoters, violent bookmakers, a Russian gangster, incompetent amateur robbers, and supposedly Jewish jewelers fight to track down a priceless stolen diamond.
+86;Singin' in the Rain;Comedy;A silent film production company and cast make a difficult transition to sound
+87;Inglourious Basterds;Adventure;In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner's vengeful plans for the same.
+88;The Kid;Comedy;The Tramp cares for an abandoned child, but events put that relationship in jeopardy.
+89;L.A. Confidential;Crime;As corruption grows in 1950s LA, three policemen - one strait-laced, one brutal, and one sleazy - investigate a series of murders with their own brand of justice.
+90;For a Few Dollars More;Western;Two bounty hunters with the same intentions team up to track down a Western outlaw.
+91;3 Idiots;Comedy;Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots".
+92;Rashomon;Mystery;A heinous crime and its aftermath are recalled from differing points of view.
+93;Scarface;Crime;In Miami in 1980, a determined Cuban immigrant takes over a drug cartel and succumbs to greed.
+94;Indiana Jones and the Last Crusade;Adventure;When Dr. Henry Jones Sr. suddenly goes missing while pursuing the Holy Grail, eminent archaeologist Indiana Jones must follow in his father's footsteps and stop the Nazis.
+95;The Hunt;Drama;A teacher lives a lonely life, all the while struggling over his son's custody. His life slowly gets better as he finds love and receives good news from his son, but his new luck is about to be brutally shattered by an innocent little lie.
+96;A Separation;Drama;A married couple are faced with a difficult decision - to improve the life of their child by moving to another country or to stay in Iran and look after a deteriorating parent who has Alzheimer's disease.
+97;Metropolis;Sci-Fi;In a futuristic city sharply divided between the working class and the city planners, the son of the city's mastermind falls in love with a working class prophet who predicts the coming of a savior to mediate their differences.
+98;Good Will Hunting;Drama;Will Hunting, a janitor at M.I.T., has a gift for mathematics, but needs help from a psychologist to find direction in his life.
+99;All About Eve;Drama;An ingenue insinuates herself into the company of an established but aging stage actress and her circle of theater friends.
+100;Batman Begins;Action;After training with his mentor, Batman begins his fight to free crime-ridden Gotham City from the corruption that Scarecrow and the League of Shadows have cast upon it.
+101;Some Like It Hot;Comedy;When two male musicians witness a mob hit, they flee the state in an all-female band disguised as women, but further complications set in.
+102;Up;Animation;Seventy-eight year old Carl Fredricksen travels to Paradise Falls in his home equipped with balloons, inadvertently taking a young stowaway.
+103;Unforgiven;Western;Retired Old West gunslinger William Munny reluctantly takes on one last job, with the help of his old partner and a young man.
+104;Downfall;Biography;Traudl Junge, the final secretary for Adolf Hitler, tells of the Nazi dictator's final days in his Berlin bunker at the end of WWII.
+105;The Third Man;Mystery;Pulp novelist Holly Martins travels to shadowy, postwar Vienna, only to find himself investigating the mysterious death of an old friend, Harry Lime.
+106;Raging Bull;Biography;An emotionally self-destructive boxer's journey through life, as the violence and temper that leads him to the top in the ring destroys his life outside it.
+107;Die Hard;Action;John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.
+108;Children of Heaven;Drama;After a boy loses his sister's pair of shoes, he goes on a series of adventures in order to find them. When he can't, he tries a new way to "win" a new pair.
+109;The Great Escape;Adventure;Allied prisoners of war plan for several hundred of their number to escape from a German camp during World War II.
+110;Chinatown;Mystery;A private detective hired to expose an adulterer finds himself caught up in a web of deceit, corruption and murder.

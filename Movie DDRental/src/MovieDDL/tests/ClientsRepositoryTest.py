@@ -6,8 +6,7 @@ Created on 26 Nov 2016
 import unittest
 from MovieDDL.domain.Entities import Client
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
-from MovieDDL.domain.Validator import ClientValidator
-from MovieDDL.repository.RepositoryClients import clientRepository
+from MovieDDL.repository.FileRepositoryClients import clientFileRepository
 
 class ClientsRepositoryTest(unittest.TestCase):
     '''
@@ -17,10 +16,9 @@ class ClientsRepositoryTest(unittest.TestCase):
         '''
         the setup of data
         '''
-        self.clientList1=[17,"Client 17"]
-        self.clientList2=[2,"Client 56"]
-        validator1=ClientValidator()
-        self.repoTest=clientRepository(validator1,"testClients.txt")
+        self.clientList1=Client(17,"Client 17")
+        self.clientList2=Client(2,"Client 56")
+        self.repoTest=clientFileRepository("testClients.txt")
         
     def testRepositoryClients(self):
         '''

@@ -4,11 +4,10 @@ Created on 27 Nov 2016
 @author: DDL
 '''
 import unittest
-from MovieDDL.domain.Entities import Client
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
 from MovieDDL.domain.Validator import ClientValidator
 from MovieDDL.controller.ControllerExceptions import ControllerException
-from MovieDDL.repository.RepositoryClients import clientRepository
+from MovieDDL.repository.FileRepositoryClients import clientFileRepository
 from MovieDDL.controller.ControllerClient import clientController
 
 class ClientsControllerTest(unittest.TestCase):
@@ -20,8 +19,8 @@ class ClientsControllerTest(unittest.TestCase):
         the setup of data
         '''
         validator1=ClientValidator()
-        repoTest=clientRepository(validator1,"testClients.txt")
-        self.controlTest=clientController(repoTest)
+        repoTest=clientFileRepository("testClients.txt")
+        self.controlTest=clientController(repoTest,validator1)
     
     def testControllerClients(self):
         '''

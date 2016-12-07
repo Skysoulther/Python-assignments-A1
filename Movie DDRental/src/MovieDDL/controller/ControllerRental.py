@@ -3,21 +3,36 @@ Created on 6 Nov 2016
 
 @author: DDL
 '''
+from MovieDDL.domain.Entities import Rental
+from MovieDDL.controller.UndoController import Operation
 from MovieDDL.controller.ControllerExceptions import ControllerException
-from operator import itemgetter
 import datetime
 
 class rentalController:
     '''
     Contains functions which operates on rentals
     '''
-    def __init__(self,repoMovie,repoClient,repoRental):
+    def __init__(self,repoMovie,repoClient,repoRental,validator,undo):
         '''
         Creates a controller for rentals
         '''
+        self._undoControl=undo
         self._repositoryRental=repoRental
         self._repositoryMovie=repoMovie
         self._repositoryClient=repoClient
+        self.__validator=validator
+        self.__functions={"add_movie":self._repositoryMovie.add_movie,
+                          "remove_movie":self._repositoryMovie.remove_movie,
+                          "edit_movie":self._repositoryMovie.update_movie,
+                          "add_client":self._repositoryClient.add_client,
+                          "remove_client":self._repositoryClient.remove_client,
+                          "edit_client":self._repositoryClient.update_client,
+                          "remove_rentals":self._repositoryRental.remove_rentals,
+                          "add_rentals":self._repositoryRental.add_rentals,
+                          "rent_movie":self._repositoryRental.add_rental,
+                          "unrent_movie":self._remove_rental,
+                          "return_movie":self._return_rental,
+                          "unreturn_movie":self._disable_return}
     
     def _generate_rentalID(self,Id):
             '''
@@ -45,6 +60,39 @@ class rentalController:
         except ValueError:
             raise ControllerException("The ID should be a number!\n")
         return True
+    
+    def remove_rentals(self,client):
+        '''
+        Remove some rentals from the repository if they exist
+        Input: client - a client Object
+        Output: -
+        Exceptions: Controller Exception when Id is not valid
+        '''
+        Id=client.get_clientID()
+        self.__validator.validateID(Id)
+        removedRentals=self._repositoryRental.remove_rentals(Id)
+        self._undoControl.store_undo([Operation("add_client",[client]),Operation("add_rentals",[removedRentals])])
+        self._undoControl.store_redo([Operation("remove_client",[client.get_clientID()]),Operation("remove_rentals",[client.get_clientID()])])
+    
+    def add_rentals(self,rentals):
+        '''
+        Add some rentals in the repository if they exist
+        Input: rentals - a list of rentals
+        Output: -
+        Exceptions: Controller Exception when Id is not valid
+        '''
+        self._repositoryRental.add_rentals(rentals)
+    
+    def _remove_rental(self,Id):
+        '''
+        Remove rental from the repository
+        Input: Id - the ID of the rental
+        Output: -
+        Exceptions: Controller Exception when the Id of the rental is not valid
+        '''
+        rental=self._repositoryRental.remove_rental(Id)
+        self._repositoryMovie.change_availability(rental.get_rmovieId(),True)
+    
     
     def get_allRentals(self):
         '''
@@ -85,12 +133,16 @@ class rentalController:
         Add a rental in the list of rentals
         Input: rental -  a list which contains the values of the fields of a rental
         Output: -
-        Exceptions: -
+        Exceptions: StoreException if the data from rental is invalid
         '''
         rentalId=self._generate_rentalID(rental[1])
         rental.insert(0,rentalId)
+        rental=Rental(rental[0],rental[1],rental[2],rental[3],rental[4])
+        self.__validator.validateRental(rental)
         self._repositoryRental.add_rental(rental)
-        self._repositoryMovie.change_availability(rental[1],False)
+        self._repositoryMovie.change_availability(rental.get_rmovieId(),False)
+        self._undoControl.store_undo([Operation("unrent_movie",[rental.get_rentalId()])])
+        self._undoControl.store_redo([Operation("rent_movie",[rental])])
     
     def checks_movie2(self,Id):
         '''
@@ -106,14 +158,15 @@ class rentalController:
         if not Id in alls:
             raise ControllerException("There is no movie with the ID: "+str(Id)+"!\n")
         if Id in available:
-            raise ControllerException("The movie with the ID: "+str(Id)+" wasn't rented!\n")
+            raise ControllerException("The movie with the ID: "+str(Id)+" is not rented!\n")
         return True
     
     
     def return_rental(self,clientId,movieId):
         '''
-        Removes a rental from the list of rentals
-        Input: rental -  a list which contains the values of the fields of a rental
+        Return a rental from the list of rentals
+        Input: clientId -  the Id of the client
+               movieId - the Id of the movie
         Output: -
         Exceptions: -
         '''
@@ -121,13 +174,39 @@ class rentalController:
         movieId=int(movieId)
         rental=self._repositoryRental.return_rental(clientId,movieId)
         self._repositoryMovie.change_availability(rental.get_rmovieId(),True)
-    
+        self._undoControl.store_undo([Operation("unreturn_movie",[clientId,movieId])])
+        self._undoControl.store_redo([Operation("return_movie",[clientId,movieId])])
+        
+    def _return_rental(self,clientId,movieId):
+        '''
+        Return a rental from the list of rentals
+        Input: clientId -  the Id of the client
+               movieId - the Id of the movie
+        Output: -
+        Exceptions: -
+        '''
+        clientId=int(clientId)
+        movieId=int(movieId)
+        rental=self._repositoryRental.return_rental(clientId,movieId)
+        self._repositoryMovie.change_availability(rental.get_rmovieId(),True)
+        
+    def _disable_return(self,clientId,movieId):
+        '''
+        Set as unreturned a rental from the list of rentals
+        Input: clientId -  the Id of the client
+               movieId - the Id of the movie
+        Output: -
+        Exceptions: -
+        '''
+        rental=self._repositoryRental.unreturn_rental(clientId,movieId)
+        self._repositoryMovie.change_availability(rental.get_rmovieId(),False)
+        
         
     def all_rentals(self):
         '''
         returns a list of rentals
         Input: -
-        Output: askedString - a string which represents the list of rentals
+        Output: rentedMovies -  the list of rentals
         Exceptions: -
         '''
         rentedMovies=[]
@@ -173,11 +252,11 @@ class rentalController:
         '''
         returns a list of rentals which are late with their returns
         Input: -
-        Output: askedString - a string which represents the list of late rentals
+        Output: list2 - the list of late rentals
         Exceptions: -
         '''
+        dtoList=[]
         list1=[]
-        list2=[]
         allMovies=self._repositoryMovie.get_all()
         rentals=self._repositoryRental.get_all()
         for key in rentals:
@@ -187,10 +266,10 @@ class rentalController:
             if delta>0:
                 movieId=rentals[key].get_rmovieId()
                 list1.append([movieId,delta])
-        list1=sorted(list1,key=itemgetter(1),reverse=True)
         for element in list1:
-            list2.append(allMovies[element[0]])
-        return list2
+            dtoList.append(objectRentalCount(allMovies[element[0]],element[1]))
+        dtoList.sort(reverse=True)
+        return dtoList
         
     def active_clients(self):
         '''
@@ -200,7 +279,7 @@ class rentalController:
         Exceptions: -
         '''
         list1={}
-        list2=[]
+        dtoList=[]
         allClients=self._repositoryClient.get_all()
         for key in allClients:
             list1[key]=0
@@ -212,12 +291,9 @@ class rentalController:
             clientId=rentals[key].get_rclientId()
             list1[clientId]+=delta
         for key in list1:
-            list2.append([key,list1[key]])
-        list1=[]
-        list2=sorted(list2,key=itemgetter(1),reverse=True)
-        for element in list2:
-            list1.append(allClients[element[0]])
-        return list1
+            dtoList.append(objectRentalCount(allClients[key],list1[key]))
+        dtoList.sort(reverse=True)
+        return dtoList
     
     def most_rented(self,option):
         '''
@@ -226,8 +302,8 @@ class rentalController:
         Output: askedString - a string which represents the list of late rentals
         Exceptions: -
         '''
+        dtoList=[]
         list1={}
-        list2=[]
         allMovies=self._repositoryMovie.get_all()
         for key in allMovies:
             list1[key]=[0,0]
@@ -239,16 +315,70 @@ class rentalController:
             movieId=rentals[key].get_rmovieId()
             list1[movieId][0]+=delta
             list1[movieId][1]+=1
-        for key in list1:
-            list2.append([key,list1[key][0],list1[key][1]])
-        list1=[]
         if option==1:
-            list2=sorted(list2,key=itemgetter(1),reverse=True)
+            for key in list1:
+                dtoList.append(objectRentalCount(allMovies[key],list1[key][0]))
         else:
-            list2=sorted(list2,key=itemgetter(2),reverse=True)
-        for element in list2:
-            list1.append(allMovies[element[0]])
-        return list1
-                    
+            for key in list1:
+                dtoList.append(objectRentalCount(allMovies[key],list1[key][1]))
+        dtoList.sort(reverse=True)
+        return dtoList
+    
+    def undo(self):
+        '''
+        Undo function
+        '''
+        operations=self._undoControl.load_undo()
+        for operation in operations:
+            params=operation.get_parameters()
+            name=operation.get_name()
+            self.__functions[name](*params)
+        
+    
+    def redo(self):
+        '''
+        Redo function
+        '''
+        operations=self._undoControl.load_redo()
+        for operation in operations:
+            params=operation.get_parameters()
+            name=operation.get_name()
+            self.__functions[name](*params)
+    
 ####################################################################################
+
+class objectRentalCount:
+    '''
+    class for data transfer object
+    '''
+    def __init__(self,obiect,rentalCount):
+        '''
+        Constructor for this data transfer object
+        object - The object
+        rentalCount - The number of times/days the object was rented
+        '''
+        self.__object=obiect
+        self.__count=rentalCount
+    
+    def get_count(self):
+        '''
+        Get the count
+        '''
+        return self.__count
+    
+    def get_movie(self):
+        '''
+        Get the movie
+        '''
+        return self.__object
+    
+    def __lt__(self, objectRental):
+        '''
+        '''
+        return self.get_count()<objectRental.get_count()
+    def __str__(self):
+        '''
+        '''
+        return str(self.get_movie()).ljust(15)+str(self.get_count())
+
 #################################################################################
