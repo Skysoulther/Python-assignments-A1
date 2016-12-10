@@ -85,6 +85,7 @@ class movieRepository():
                booly - True or False
         '''
         self.__movies[Id].set_availability(booly)
+        
     
     def find_by_ID(self,Id):
         '''

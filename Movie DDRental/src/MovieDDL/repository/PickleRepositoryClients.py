@@ -1,17 +1,17 @@
 '''
-Created on 27 Nov 2016
+Created on 9 Dec 2016
 
 @author: DDL
 '''
 from MovieDDL.repository.RepositoryExceptions import FileRepositoryException
 from MovieDDL.repository.RepositoryClients import clientRepository
-from MovieDDL.domain.Entities import Client
+import pickle
 
-class clientFileRepository(clientRepository):
+class clientPickleRepository(clientRepository):
     '''
     Hit all the walls in front of you in order to know how to avoid them the next time
     '''
-    def __init__(self, fileName="clients.txt"):
+    def __init__(self, fileName="clients.pickle"):
         '''
         Constructor for file repository
         Input: fileName - the name of the file
@@ -51,24 +51,21 @@ class clientFileRepository(clientRepository):
         self.__storeToFile()
     
     def __loadFromFile(self):
+        f=open(self.__fName,"rb")
         try:
-            f=open(self.__fName,"r")
-            line=f.readline().strip()
-            while line!="":
-                attrs=line.split(";")
-                client=Client(int(attrs[0]),attrs[1])
-                clientRepository.add_client(self,client)
-                line=f.readline().strip()
-        except IOError:
-            raise FileRepositoryException()
+            clients=pickle.load(f)
+            for key in clients:
+                clientRepository.add_client(self, clients[key])
+        except EOFError:
+            clientRepository.__movies={}
+        except Exception as e:
+            raise FileRepositoryException(e)
         finally:
-            f.close
+            f.close()
     
     def __storeToFile(self):
-        f=open(self.__fName, "w")
-        clients=clientRepository.get_all(self)
-        for key in clients:
-            strf=str(clients[key].get_clientID())+";"+str(clients[key].get_clientName())+"\n"
-            f.write(strf)
+        f=open(self.__fName, "wb")
+        self.__clients=clientRepository.get_all(self)
+        pickle.dump(self.__clients, f)
         f.close
     

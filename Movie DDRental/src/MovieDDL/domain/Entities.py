@@ -117,7 +117,6 @@ class Client:
         '''
         self.__clientID=clientID
         self.__name=name
-        self.__rentedDays=0
     
     def __str__(self):
         '''
@@ -279,4 +278,22 @@ class Rental:
         Output: self._returnDate - the date when the movie was returned
         '''
         return self.__returnDate
+    
+    def set_rentJSONDate(self,rDate):
+        '''
+        Set the date when the movie was rented
+        Input: day - a number representing a day in a month
+               month - a number representing a month
+               year - a number representing a year
+        '''
+        self.__rentDate=rDate
+    
+    def set_dueJSONDate(self,dDate):
+        '''
+        Set the date when the movie was rented
+        Input: day - a number representing a day in a month
+               month - a number representing a month
+               year - a number representing a year
+        '''
+        self.__dueDate=dDate
     
