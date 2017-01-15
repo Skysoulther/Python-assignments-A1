@@ -108,3 +108,4 @@
 108;Children of Heaven;Drama;After a boy loses his sister's pair of shoes, he goes on a series of adventures in order to find them. When he can't, he tries a new way to "win" a new pair.
 109;The Great Escape;Adventure;Allied prisoners of war plan for several hundred of their number to escape from a German camp during World War II.
 110;Chinatown;Mystery;A private detective hired to expose an adulterer finds himself caught up in a web of deceit, corruption and murder.
+111;111;horror;new 111

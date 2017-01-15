@@ -4,6 +4,7 @@ Created on 4 Nov 2016
 @author: DDL
 '''
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
+from MovieDDL.repository.Iterator import iterableData
 
 class clientRepository():
     '''
@@ -13,7 +14,7 @@ class clientRepository():
         '''
         Creates a repository for the clients
         '''
-        self.__clients={}
+        self.__clients=iterableData()
     
     def find_by_ID(self,Id):
         '''

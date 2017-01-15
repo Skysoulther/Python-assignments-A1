@@ -4,6 +4,7 @@ Created on 4 Nov 2016
 @author: DDL
 '''
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
+from MovieDDL.repository.Iterator import iterableData
 
 class movieRepository():
     '''
@@ -13,7 +14,7 @@ class movieRepository():
         '''
         Creates repository for the movies
         '''
-        self.__movies={}
+        self.__movies=iterableData()
         
     def add_movie(self,movie):
         '''

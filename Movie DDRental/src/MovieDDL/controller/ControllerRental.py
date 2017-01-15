@@ -6,6 +6,7 @@ Created on 6 Nov 2016
 from MovieDDL.domain.Entities import Rental
 from MovieDDL.controller.UndoController import Operation
 from MovieDDL.controller.ControllerExceptions import ControllerException
+from MovieDDL.repository.SortingFilter import SortingFilter
 import datetime
 
 class rentalController:
@@ -268,7 +269,7 @@ class rentalController:
                 list1.append([movieId,delta])
         for element in list1:
             dtoList.append(objectRentalCount(allMovies[element[0]],element[1]))
-        dtoList.sort(reverse=True)
+        dtoList=SortingFilter.gnomeSort(dtoList,SortingFilter.comparison2)
         return dtoList
         
     def active_clients(self):
@@ -292,7 +293,7 @@ class rentalController:
             list1[clientId]+=delta
         for key in list1:
             dtoList.append(objectRentalCount(allClients[key],list1[key]))
-        dtoList.sort(reverse=True)
+        dtoList=SortingFilter.gnomeSort(dtoList,SortingFilter.comparison2)
         return dtoList
     
     def most_rented(self,option):
@@ -321,7 +322,7 @@ class rentalController:
         else:
             for key in list1:
                 dtoList.append(objectRentalCount(allMovies[key],list1[key][1]))
-        dtoList.sort(reverse=True)
+        dtoList=SortingFilter.gnomeSort(dtoList,SortingFilter.comparison2)
         return dtoList
     
     def undo(self):

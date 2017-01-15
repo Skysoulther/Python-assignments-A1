@@ -4,6 +4,7 @@ Created on 6 Nov 2016
 @author: DDL
 '''
 from MovieDDL.repository.RepositoryExceptions import RepositoryException
+from MovieDDL.repository.Iterator import iterableData
 import datetime
 
 class rentalRepository():
@@ -14,7 +15,7 @@ class rentalRepository():
         '''
         Creates the repository of rented movies
         '''
-        self.__rentals={}
+        self.__rentals=iterableData()
         self.__movieRepo=repoMovie
     
     def setAvailability(self):
